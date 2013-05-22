@@ -1,0 +1,247 @@
+<html>
+	<head>
+		<script>
+			var selected = 0;
+			var oldIp= '';
+			var timer;
+			
+			try{
+				push.detected = 'pushed(%json)';
+				push.unattended = 'enabled';
+				push.start();
+			
+				signal.signalEvent = 'signalEvent(%json)';
+			}catch(e){alert('NotRho');}
+			
+			function pushed(jsonObj)
+			{
+				showImage(jsonObj.image);
+			}
+			
+			function signalEvent(jsonObj)
+			{
+				if(jsonObj.ipAddress != oldIp)
+				{
+					oldIp = jsonObj.ipAddress;
+					render(oldIp);
+				}
+			}
+			
+			function showImage(imageId)
+			{
+				if(timer) clearTimeout(timer);
+				var newImage = document.getElementById(imageId);
+				document.getElementById(selected).className = 'hidden';
+				var isPortrait = false;
+				if(newImage.height / 3 > newImage.width / 4)
+				{
+					isPortrait = true;
+				}
+				
+				var heightRat = 220 / newImage.height;
+				var widthRat = 300 / newImage.width;
+				
+				if(imageId == 0)
+				{
+					newImage.style.width = '300px';
+					newImage.className = '';
+				}
+				else
+				{
+					if((heightRat < 1 && isPortrait))
+					{
+						newImage.style.zoom = 1;
+						newImage.className = 'high';
+					}
+					else if(widthRat < 1 && !isPortrait)
+					{
+						newImage.style.zoom = 1;
+						newImage.className = 'wide';
+					}
+					else if(widthRat >= 2 && !isPortrait)
+					{
+						newImage.className = '';
+						newImage.style.zoom = Math.floor(widthRat);
+					}
+					else if(heightRat >= 2 && isPortrait)
+					{
+						newImage.className = '';
+						newImage.style.zoom = Math.floor(heightRat);
+					}
+					else
+					{
+						newImage.className = '';
+						newImage.style.zoom = 1;
+					}
+					timer = setTimeout(function(){showImage(0)}, 60000);
+				}
+				selected = imageId;
+			}
+			
+			function quit()
+			{
+				application.quit();
+			}
+			
+			function loadEvent()
+			{
+				var imgs = document.getElementsByTagName('img');
+				for(var i = 0; i < imgs.length; i++)
+				{
+					imgs[i].addEventListener('click', next);
+				}
+				document.getElementById('0').addEventListener('click', next);
+			}
+			window.addEventListener('DOMContentLoaded', loadEvent);
+			
+			function next()
+			{
+				showImage(parseInt(selected) + 1);
+				return false;
+			}
+		</script>
+		<style>
+			.hidden
+			{
+				display:none;
+			}
+			.wide
+			{
+				width: 300px;
+			}
+			.high
+			{
+				height:220px;
+			}
+			*
+			{
+				margin-left:auto;
+				margin-right:auto;
+			}
+			body
+			{
+				display:-webkit-box;
+				-webkit-box-pack:center;
+				-webkit-box-align:center;
+			}
+		</style>
+	</head>
+<body ondblclick="quit()">
+	<canvas id="0" width=207 height=144 style="border:1px solid #fff;visibility:hidden; width:300px"></canvas>
+	<img class="hidden" id="1" src="img/1-all.jpg"></img>
+	<img class="hidden" id="2" src="img/2-UPCA.jpg"></img>
+	<img class="hidden" id="3" src="img/3-Auspostal.gif"></img>
+	<img class="hidden" id="4" src="img/4-Canpostal.jpg"></img>
+	<img class="hidden" id="5" src="img/5-Codabar20.jpg"></img>
+	<img class="hidden" id="6" src="img/6-CodabarCLSiE.jpg"></img>
+	<img class="hidden" id="7" src="img/7-CodabarMax.gif"></img>
+	<img class="hidden" id="8" src="img/8-CodabarMin.jpg"></img>
+	<img class="hidden" id="9" src="img/9-CodabarNotisE.jpg"></img>
+	<img class="hidden" id="10" src="img/10-CodabarRed.jpg"></img>
+	<img class="hidden" id="11" src="img/11-Code11.gif"></img>
+	<img class="hidden" id="12" src="img/12-Code11CheckDigitCount.gif"></img>
+	<img class="hidden" id="13" src="img/13-Code11CheckDigitCount.gif"></img>
+	<img class="hidden" id="14" src="img/14-Code11Red.png"></img>
+	<img class="hidden" id="15" src="img/15-Code128.jpg"></img>
+	<img class="hidden" id="16" src="img/16-Code128EAN128.jpg"></img>
+	<img class="hidden" id="17" src="img/17-Code128ISBT128.gif"></img>
+	<img class="hidden" id="18" src="img/18-Code128Max.jpg"></img>
+	<img class="hidden" id="19" src="img/19-Code128Min.jpg"></img>
+	<img class="hidden" id="20" src="img/20-Code128Other128.jpg"></img>
+	<img class="hidden" id="21" src="img/21-Code128Red.jpg"></img>
+	<img class="hidden" id="22" src="img/22-Code39.jpg"></img>
+	<img class="hidden" id="23" src="img/23-Code39Code32Prefix.png"></img>
+	<img class="hidden" id="24" src="img/24-Code39FullAscii.jpg"></img>
+	<img class="hidden" id="25" src="img/25-Code39Max.jpg"></img>
+	<img class="hidden" id="26" src="img/26-Code39Min.jpg"></img>
+	<img class="hidden" id="27" src="img/27-Code39Red.jpg"></img>
+	<img class="hidden" id="28" src="img/28-Code93.jpg"></img>
+	<img class="hidden" id="29" src="img/29-Code93Max.jpg"></img>
+	<img class="hidden" id="30" src="img/30-Code93Min.jpg"></img>
+	<img class="hidden" id="31" src="img/31-Code93red.png"></img>
+	<img class="hidden" id="32" src="img/32-Compositeab.png"></img>
+	<img class="hidden" id="33" src="img/33-Compositec.gif"></img>
+	<img class="hidden" id="34" src="img/34-D2of5.jpg"></img>
+	<img class="hidden" id="35" src="img/35-D2of5Max.jpg"></img>
+	<img class="hidden" id="36" src="img/36-D2of5Red+Min.jpg"></img>
+	<img class="hidden" id="37" src="img/37-DataMatrix.gif"></img>
+	<img class="hidden" id="38" src="img/38-DutchPostal.png"></img>
+	<img class="hidden" id="39" src="img/39-EAN13.gif"></img>
+	<img class="hidden" id="40" src="img/40-EAN8.jpg"></img>
+	<img class="hidden" id="41" src="img/41-I2of5.jpg"></img>
+	<img class="hidden" id="42" src="img/42-I2of5ConvEAN13.jpg"></img>
+	<img class="hidden" id="43" src="img/43-I2of5Max.jpg"></img>
+	<img class="hidden" id="44" src="img/44-I2of5Min.jpg"></img>
+	<img class="hidden" id="45" src="img/45-I2of5Red.jpg"></img>
+	<img class="hidden" id="46" src="img/46-I2of5Report.gif"></img>
+	<img class="hidden" id="47" src="img/47-I2of5Verify0.jpg"></img>
+	<img class="hidden" id="48" src="img/48-I2of5VerifyUSS.gif"></img>
+	<img class="hidden" id="49" src="img/49-I2of5VerifyOPCC.gif"></img>
+	<img class="hidden" id="50" src="img/50-jappostal.png"></img>
+	<img class="hidden" id="51" src="img/51-MacroMicroPDF.png"></img>
+	<img class="hidden" id="52" src="img/52-MacroPdf.png"></img>
+	<img class="hidden" id="53" src="img/53-Maxicode.png"></img>
+	<img class="hidden" id="54" src="img/54-MicroPdf.gif"></img>
+	<img class="hidden" id="55" src="img/55-MSI.jpg"></img>
+	<img class="hidden" id="56" src="img/56-MSICheck1MOD10.gif"></img>
+	<img class="hidden" id="57" src="img/57-MSICheck2MOD10.gif"></img>
+	<img class="hidden" id="58" src="img/58-MSICheckSch1110.gif"></img>
+	<img class="hidden" id="59" src="img/59-MSICheckSch1010.gif"></img>
+	<img class="hidden" id="60" src="img/60-MSIMax.png"></img>
+	<img class="hidden" id="61" src="img/61-MSIMin+Red+Rep.jpg"></img>
+	<img class="hidden" id="62" src="img/62-PDF417.gif"></img>
+	<img class="hidden" id="63" src="img/63-QRcode.gif"></img>
+	<img class="hidden" id="64" src="img/64-RSS14.png"></img>
+	<img class="hidden" id="65" src="img/65-RSSExp.png"></img>
+	<img class="hidden" id="66" src="img/66-RSSLim.png"></img>
+	<img class="hidden" id="67" src="img/67-Signature.png"></img>
+	<img class="hidden" id="68" src="img/68-TLC39.gif"></img>
+	<img class="hidden" id="69" src="img/69-Trioptic39+Red.png"></img>
+	<img class="hidden" id="70" src="img/70-UKPostal.png"></img>
+	<img class="hidden" id="71" src="img/71-UPCEANBookland.gif"></img>
+	<img class="hidden" id="72" src="img/72-UPCEANCoupon.png"></img>
+	<img class="hidden" id="73" src="img/73-UPCEANLin+Rand.gif"></img>
+	<img class="hidden" id="74" src="img/74-UPCEANRetry+Sec+Supp2.gif"></img>
+	<img class="hidden" id="75" src="img/75-UPCEANSupp5.gif"></img>
+	<img class="hidden" id="76" src="img/76-UPCEANSuppNone.gif"></img>
+	<img class="hidden" id="77" src="img/77-UPCA+Pre+Rep.jpg"></img>
+	<img class="hidden" id="78" src="img/78-UPCE0+Conv+Preamb+Report.png"></img>
+	<img class="hidden" id="79" src="img/79-UPCE1+Conv+Preamb+Report.gif"></img>
+	<img class="hidden" id="80" src="img/80-USPlanet.gif"></img>
+	<img class="hidden" id="81" src="img/81-USPostnet.gif"></img>
+	<img class="hidden" id="82" src="img/82-Webcode.gif"></img>
+	<img class="hidden" id="83" src="img/83-Aztec.png"></img>
+	<img class="hidden" id="84" src="img/84-Chinese2of5.png"></img>
+	<img class="hidden" id="85" src="img/85-Korean3of5.png"></img>
+	<img class="hidden" id="86" src="img/86-MicroQR.jpg"></img>
+	<img class="hidden" id="87" src="img/87-US4State.png"></img>
+</body>
+<script type="text/javascript">
+//BarcodeGenerator Code
+var symdesc = [{ sym:"code39",desc:"Code 39",text:"THIS IS CODE 39",opts:"includecheck" }];
+//symdesc.sort(function(a,b) {
+//	return (a.desc < b.desc ? -1 : 1);
+//});
+
+function render(text) {
+	var bw = new BWIPJS;
+	opts = {includecheck:false};
+	opts.inkspread = bw.value(0);
+	opts.textyoffset = bw.value(-10);
+
+	var rot  = 'N';
+	bw.bitmap(new Bitmap);
+	bw.scale(1,2);
+	bw.push(text);
+	bw.push(opts);
+	bw.call('code39');
+	bw.bitmap().show('0', rot);
+}
+</script>
+<script type="text/javascript" src="lib/bwip.js"></script>
+<script type="text/javascript" src="lib/jquery-1.4.1.js"></script>
+<script type="text/javascript" src="lib/needyoffset.js"></script>
+<script type="text/javascript" src="lib/canvas.js"></script>
+<script type="text/javascript" src="lib/renlinear.js"></script>
+<script type="text/javascript" src="lib/code39.js"></script>
+</html>

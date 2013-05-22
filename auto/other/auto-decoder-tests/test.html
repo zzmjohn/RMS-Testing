@@ -1,0 +1,1373 @@
+<html>
+<head>
+  <!-- link rel="shortcut icon" type="image/png" href="./lib/jasmine-1.2.0/jasmine_favicon.png">
+  <link rel="stylesheet" type="text/css" href="./lib/jasmine-1.2.0/jasmine.css">
+  <script type="text/javascript" src="./lib/jasmine-1.2.0/jasmine.js"></script>
+  <script type="text/javascript" src="./lib/jasmine-1.2.0/jasmine-html.js"></script>
+  <script type="text/javascript" src="./lib/jasmine-1.2.0/jasmine.junit_reporter.js"></script-->
+  <script src="jquery-1.6.4.min.js" type="text/javascript"></script>
+<script>
+"use strict";
+
+var barcodeShowerIP;
+var barcode;
+var currentImage = 0;
+var currentTest = 0;
+var callbackValue;
+var myParameters;
+var timeout;
+var div;
+var Rho;
+
+function init()
+{
+	//Rho = {Barcode:{enable:function(){}, start:function(){}, stop:function(){}, getDefault:function(){return this;}}}
+	div = document.getElementById('out');
+	myParameters = new Array(283); 
+	var i = 0;
+	for (i=0; i <=283; i++)	{myParameters[i]=new Array(3);}
+	
+	myParameters[0][0] = function(){barcode.enable({allDecoders:true}, decodeCallback); barcode.start();};
+	myParameters[1][0] = function(){barcode.enable({allDecoders:false}, decodeCallback); barcode.start();};
+	//auspostal        
+	myParameters[2][0] = function(){barcode.enable({allDecoders:false,auspostal:true}, decodeCallback); barcode.start();};
+	myParameters[3][0] = function(){barcode.enable({allDecoders:true,auspostal:false}, decodeCallback); barcode.start();};
+	//canpostal
+	myParameters[4][0] = function(){barcode.enable({allDecoders:false,canpostal:true}, decodeCallback); barcode.start();};
+	myParameters[5][0] = function(){barcode.enable({allDecoders:true,canpostal:false}, decodeCallback); barcode.start();};
+	//codabar
+	myParameters[6][0] = function(){barcode.enable({allDecoders:false,Codabar:true}, decodeCallback); barcode.start();};
+	myParameters[7][0] = function(){barcode.enable({allDecoders:true,Codabar:false}, decodeCallback); barcode.start();};
+	myParameters[8][0] = function(){barcode.enable({allDecoders:false,Codabar:true,CodabarCLSiEditing:true}, decodeCallback); barcode.start();};
+	myParameters[9][0] = function(){barcode.enable({allDecoders:false,Codabar:true,CodabarCLSiEditing:false}, decodeCallback); barcode.start();};
+	myParameters[10][0] = function(){barcode.enable({allDecoders:false,Codabar:true,Codabarmaxlength:0,Codabarminlength:0}, decodeCallback); barcode.start();};
+	myParameters[11][0] = function(){barcode.enable({allDecoders:false,Codabar:true,Codabarmaxlength:12,Codabarminlength:1}, decodeCallback); barcode.start();};
+	myParameters[12][0] = function(){barcode.enable({allDecoders:false,Codabar:true,Codabarminlength:0}, decodeCallback); barcode.start();};
+	myParameters[13][0] = function(){barcode.enable({allDecoders:false,Codabar:true,Codabarminlength:10}, decodeCallback); barcode.start();};
+	myParameters[14][0] = function(){barcode.enable({allDecoders:false,Codabar:true,Codabarmaxlength:0,Codabarminlength:5}, decodeCallback); barcode.start();};
+	myParameters[15][0] = function(){barcode.enable({allDecoders:false,Codabar:true,Codabarnotisediting:true}, decodeCallback); barcode.start();};
+	myParameters[16][0] = function(){barcode.enable({allDecoders:false,Codabar:true,Codabarnotisediting:false}, decodeCallback); barcode.start();};
+	myParameters[17][0] = function(){barcode.enable({allDecoders:false,Codabar:true,Codabarredundancy:true}, decodeCallback); barcode.start();};
+	myParameters[18][0] = function(){barcode.enable({allDecoders:false,Codabar:true,Codabarredundancy:false}, decodeCallback); barcode.start();};
+	//code11
+	myParameters[19][0] = function(){barcode.enable({allDecoders:false,Code11:true}, decodeCallback); barcode.start();};
+	myParameters[20][0] = function(){barcode.enable({allDecoders:true,Code11:false}, decodeCallback); barcode.start();};
+	myParameters[21][0] = function(){barcode.enable({allDecoders:false,Code11:true,code11checkDigitCount:'none'}, decodeCallback); barcode.start();};
+	myParameters[22][0] = function(){barcode.enable({allDecoders:false,Code11:true,Code11CheckDigitCount:'one',Code11ReportCheckDigit:true}, decodeCallback); barcode.start();};
+	myParameters[23][0] = function(){barcode.enable({allDecoders:false,Code11:true,Code11CheckDigitCount:'two',Code11ReportCheckDigit:true}, decodeCallback); barcode.start();};
+	myParameters[24][0] = function(){barcode.enable({allDecoders:false,Code11:true,Code11Redundancy:true}, decodeCallback); barcode.start();};
+	myParameters[25][0] = function(){barcode.enable({allDecoders:false,Code11:true,Code11Redundancy:false}, decodeCallback); barcode.start();};
+	myParameters[26][0] = function(){barcode.enable({allDecoders:false,Code11:true,Code11ReportCheckDigit:true}, decodeCallback); barcode.start();};
+	myParameters[27][0] = function(){barcode.enable({allDecoders:false,Code11:true,Code11CheckDigitCount:'one',Code11ReportCheckDigit:false}, decodeCallback); barcode.start();};
+	//code128
+	myParameters[28][0] = function(){barcode.enable({allDecoders:false,Code128:true}, decodeCallback); barcode.start();};
+	myParameters[29][0] = function(){barcode.enable({allDecoders:true,Code128:false}, decodeCallback); barcode.start();};
+	myParameters[30][0] = function(){barcode.enable({allDecoders:false,Code128:true,code128ean128:true}, decodeCallback); barcode.start();};
+	myParameters[31][0] = function(){barcode.enable({allDecoders:false,Code128:true,code128ean128:false}, decodeCallback); barcode.start();};
+	myParameters[32][0] = function(){barcode.enable({allDecoders:false,Code128:true,code128isbt128:true}, decodeCallback); barcode.start();};
+	myParameters[33][0] = function(){barcode.enable({allDecoders:false,Code128:true,code128isbt128:false}, decodeCallback); barcode.start();};
+	myParameters[34][0] = function(){barcode.enable({allDecoders:false,Code128:true,Code128maxlength:0,Code128MinLength:0}, decodeCallback); barcode.start();};
+	myParameters[35][0] = function(){barcode.enable({allDecoders:false,Code128:true,Code128maxlength:20,Code128MinLength:1}, decodeCallback); barcode.start();};
+	myParameters[36][0] = function(){barcode.enable({allDecoders:false,Code128:true,Code128MinLength:1}, decodeCallback); barcode.start();};
+	myParameters[37][0] = function(){barcode.enable({allDecoders:false,Code128:true,Code128MinLength:10}, decodeCallback); barcode.start();};
+	myParameters[38][0] = function(){barcode.enable({allDecoders:false,Code128:true,code128other128:true}, decodeCallback); barcode.start();};
+	myParameters[39][0] = function(){barcode.enable({allDecoders:false,Code128:true,code128other128:false}, decodeCallback); barcode.start();};
+	myParameters[40][0] = function(){barcode.enable({allDecoders:false,Code128:true,Code128Redundancy:true}, decodeCallback); barcode.start();};
+	myParameters[41][0] = function(){barcode.enable({allDecoders:false,Code128:true,Code128Redundancy:false}, decodeCallback); barcode.start();};
+	myParameters[42][0] = function(){barcode.enable({allDecoders:true,Code128:true,code128isBt128ConcatMode:'never'}, decodeCallback); barcode.start();};
+	myParameters[43][0] = function(){barcode.enable({allDecoders:false,Code128:true,code128isBt128ConcatMode:'always'}, decodeCallback); barcode.start();};
+	myParameters[44][0] = function(){barcode.enable({allDecoders:false,Code128:true,code128isBt128ConcatMode:'auto'}, decodeCallback); barcode.start();};
+	myParameters[45][0] = function(){barcode.enable({allDecoders:false,Code128:true,code128checkIsBtTable:true,code128isBt128ConcatMode:'always'}, decodeCallback); barcode.start();};
+	myParameters[46][0] = function(){barcode.enable({allDecoders:false,Code128:true,code128checkIsBtTable:false,code128isBt128ConcatMode:'always'}, decodeCallback); barcode.start();};
+	myParameters[47][0] = function(){barcode.enable({allDecoders:true,Code128:true,code128securityLevel:0}, decodeCallback); barcode.start();};
+	myParameters[48][0] = function(){barcode.enable({allDecoders:false,Code128:true,code128securityLevel:1}, decodeCallback); barcode.start();};
+	myParameters[49][0] = function(){barcode.enable({allDecoders:false,Code128:true,code128securityLevel:2}, decodeCallback); barcode.start();};   
+	myParameters[50][0] = function(){barcode.enable({allDecoders:false,Code128:true,code128securityLevel:3}, decodeCallback); barcode.start();}; 
+	//code39              
+	myParameters[51][0] = function(){barcode.enable({allDecoders:false,Code39:true}, decodeCallback); barcode.start();};
+	myParameters[52][0] = function(){barcode.enable({allDecoders:true,Code39:false}, decodeCallback); barcode.start();};
+	myParameters[53][0] = function(){barcode.enable({allDecoders:false,Code39:true,Code39code32prefix:true,Code39ConvertToCode32:true}, decodeCallback); barcode.start();};
+	myParameters[54][0] = function(){barcode.enable({allDecoders:false,Code39:true,Code39code32prefix:false,Code39ConvertToCode32:true}, decodeCallback); barcode.start();};
+	myParameters[55][0] = function(){barcode.enable({allDecoders:false,Code39:true,Code39ConvertToCode32:true}, decodeCallback); barcode.start();};
+	myParameters[56][0] = function(){barcode.enable({allDecoders:false,Code39:true,Code39ConvertToCode32:false}, decodeCallback); barcode.start();};
+	myParameters[57][0] = function(){barcode.enable({allDecoders:false,Code39:true,Code39fullascii:true}, decodeCallback); barcode.start();};
+	myParameters[58][0] = function(){barcode.enable({allDecoders:false,Code39:true,Code39fullascii:false}, decodeCallback); barcode.start();};
+	myParameters[59][0] = function(){barcode.enable({allDecoders:false,Code39:true,Code39maxlength:0,Code39MinLength:0}, decodeCallback); barcode.start();};
+	myParameters[60][0] = function(){barcode.enable({allDecoders:false,Code39:true,Code39maxlength:14,Code39MinLength:1}, decodeCallback); barcode.start();};
+	myParameters[61][0] = function(){barcode.enable({allDecoders:false,Code39:true,Code39MinLength:1}, decodeCallback); barcode.start();};
+	myParameters[62][0] = function(){barcode.enable({allDecoders:false,Code39:true,Code39MinLength:10}, decodeCallback); barcode.start();};
+	myParameters[63][0] = function(){barcode.enable({allDecoders:false,Code39:true,Code39Redundancy:true}, decodeCallback); barcode.start();};
+	myParameters[64][0] = function(){barcode.enable({allDecoders:false,Code39:true,Code39Redundancy:false}, decodeCallback); barcode.start();};
+	myParameters[65][0] = function(){barcode.enable({allDecoders:false,Code39:true,Code39ReportCheckDigit:true,Code39VerifyCheckDigit:true}, decodeCallback); barcode.start();};
+	myParameters[66][0] = function(){barcode.enable({allDecoders:false,Code39:true,Code39ReportCheckDigit:false,Code39VerifyCheckDigit:true}, decodeCallback); barcode.start();};
+	myParameters[67][0] = function(){barcode.enable({allDecoders:false,Code39:true,Code39VerifyCheckDigit:true}, decodeCallback); barcode.start();};
+	myParameters[68][0] = function(){barcode.enable({allDecoders:false,Code39:true,Code39VerifyCheckDigit:false}, decodeCallback); barcode.start();};
+	myParameters[69][0] = function(){barcode.enable({allDecoders:true,Code39:true,code39securityLevel:0}, decodeCallback); barcode.start();};
+	myParameters[70][0] = function(){barcode.enable({allDecoders:false,Code39:true,code39securityLevel:1}, decodeCallback); barcode.start();};
+	myParameters[71][0] = function(){barcode.enable({allDecoders:false,Code39:true,code39securityLevel:2}, decodeCallback); barcode.start();};   
+	myParameters[72][0] = function(){barcode.enable({allDecoders:false,Code39:true,code39securityLevel:3}, decodeCallback); barcode.start();};  
+	//code93 
+	myParameters[73][0] = function(){barcode.enable({allDecoders:false,Code93:true}, decodeCallback); barcode.start();};
+	myParameters[74][0] = function(){barcode.enable({allDecoders:true,Code93:false}, decodeCallback); barcode.start();};
+	myParameters[75][0] = function(){barcode.enable({allDecoders:false,Code93:true,Code93maxlength:0}, decodeCallback); barcode.start();};
+	myParameters[76][0] = function(){barcode.enable({allDecoders:false,Code93:true,Code93maxlength:20,Code93MinLength:1}, decodeCallback); barcode.start();};
+	myParameters[77][0] = function(){barcode.enable({allDecoders:false,Code93:true,Code93MinLength:1}, decodeCallback); barcode.start();};
+	myParameters[78][0] = function(){barcode.enable({allDecoders:false,Code93:true,Code93MinLength:10}, decodeCallback); barcode.start();};
+	myParameters[79][0] = function(){barcode.enable({allDecoders:false,Code93:true,Code93Redundancy:true}, decodeCallback); barcode.start();};
+	myParameters[80][0] = function(){barcode.enable({allDecoders:false,Code93:true,Code93Redundancy:false}, decodeCallback); barcode.start();};
+	//compositeAb
+	myParameters[81][0] = function(){barcode.enable({allDecoders:true,compositeAb:true,upca:true}, decodeCallback); barcode.start();};
+	myParameters[82][0] = function(){barcode.enable({allDecoders:true,compositeAb:false,upca:false}, decodeCallback); barcode.start();};
+	myParameters[83][0] = function(){barcode.enable({allDecoders:true,Compositeab:true,upca:true,compositeAbUseUpcPreambleCheckDigitRules:true,compositeAbUccLinkMode:'always'}, decodeCallback); barcode.start();};
+	myParameters[84][0] = function(){barcode.enable({allDecoders:true,Compositeab:true,upca:true,compositeAbUseUpcPreambleCheckDigitRules:false,compositeAbUccLinkMode:'always'}, decodeCallback); barcode.start();};
+	myParameters[85][0] = function(){barcode.enable({allDecoders:true,Compositeab:true,upca:true,compositeAbUccLinkMode:'always'}, decodeCallback); barcode.start();};
+	myParameters[86][0] = function(){barcode.enable({allDecoders:true,Compositeab:true,upca:true,compositeAbUccLinkMode:'auto'}, decodeCallback); barcode.start();};
+	myParameters[87][0] = function(){barcode.enable({allDecoders:true,Compositeab:true,upca:true,compositeAbUccLinkMode:'never'}, decodeCallback); barcode.start();};
+	//Compositec
+	myParameters[88][0] = function(){barcode.enable({allDecoders:true,Compositec:true,Code128:true}, decodeCallback); barcode.start();};
+	myParameters[89][0] = function(){barcode.enable({allDecoders:true,Compositec:false}, decodeCallback); barcode.start();};
+	//d2of5
+	myParameters[90][0] = function(){barcode.enable({allDecoders:false,d2of5:true}, decodeCallback); barcode.start();};
+	myParameters[91][0] = function(){barcode.enable({allDecoders:true,d2of5:false}, decodeCallback); barcode.start();};
+	myParameters[92][0] = function(){barcode.enable({allDecoders:false,d2of5:true,d2of5maxlength:20,d2of5minlength:1}, decodeCallback); barcode.start();};
+	myParameters[93][0] = function(){barcode.enable({allDecoders:false,d2of5:true,d2of5Redundancy:true}, decodeCallback); barcode.start();};
+	myParameters[94][0] = function(){barcode.enable({allDecoders:false,d2of5:true,d2of5Redundancy:false}, decodeCallback); barcode.start();};
+	myParameters[95][0] = function(){barcode.enable({allDecoders:false,d2of5:true,d2of5MinLength:10,d2of5maxlength:40}, decodeCallback); barcode.start();};
+	//DataMatrix
+	myParameters[96][0] = function(){barcode.enable({allDecoders:false,DataMatrix:true}, decodeCallback); barcode.start();};
+	myParameters[97][0] = function(){barcode.enable({allDecoders:true,DataMatrix:false}, decodeCallback); barcode.start();};
+	//DutchPostal
+	myParameters[98][0] = function(){barcode.enable({allDecoders:false,DutchPostal:true}, decodeCallback); barcode.start();};
+	myParameters[99][0] = function(){barcode.enable({allDecoders:true,DutchPostal:false}, decodeCallback); barcode.start();};
+	//ean13
+	myParameters[100][0] = function(){barcode.enable({allDecoders:false,ean13:true}, decodeCallback); barcode.start();};
+	myParameters[101][0] = function(){barcode.enable({allDecoders:true,ean13:false}, decodeCallback); barcode.start();};
+	//ean8
+	myParameters[102][0] = function(){barcode.enable({allDecoders:false,ean8:true}, decodeCallback); barcode.start();};
+	myParameters[103][0] = function(){barcode.enable({allDecoders:true,ean8:false}, decodeCallback); barcode.start();};
+	myParameters[104][0] = function(){barcode.enable({allDecoders:false,ean8:true,ean13:true,ean8ConvertToEAN13:true}, decodeCallback); barcode.start();};
+	myParameters[105][0] = function(){barcode.enable({allDecoders:false,ean8:true,ean13:true,ean8ConvertToEAN13:false}, decodeCallback); barcode.start();};
+	//i2of5
+	myParameters[106][0] = function(){barcode.enable({allDecoders:false,i2of5:true}, decodeCallback); barcode.start();};
+	myParameters[107][0] = function(){barcode.enable({allDecoders:true,i2of5:false}, decodeCallback); barcode.start();};
+	myParameters[108][0] = function(){barcode.enable({allDecoders:false,i2of5:true,ean13:true,i2of5ConvertToEAN13:true}, decodeCallback); barcode.start();};
+	myParameters[109][0] = function(){barcode.enable({allDecoders:false,i2of5:true,ean13:true,i2of5ConvertToEAN13:false}, decodeCallback); barcode.start();};
+	myParameters[110][0] = function(){barcode.enable({allDecoders:false,i2of5:true,i2of5maxlength:0,i2of5MinLength:0}, decodeCallback); barcode.start();};
+	myParameters[111][0] = function(){barcode.enable({allDecoders:false,i2of5:true,i2of5maxlength:13,i2of5MinLength:1}, decodeCallback); barcode.start();};
+	myParameters[112][0] = function(){barcode.enable({allDecoders:false,i2of5:true,i2of5MinLength:1}, decodeCallback); barcode.start();};
+	myParameters[113][0] = function(){barcode.enable({allDecoders:false,i2of5:true,i2of5MinLength:12,i2of5maxlength:20}, decodeCallback); barcode.start();};
+	myParameters[114][0] = function(){barcode.enable({allDecoders:false,i2of5:true,i2of5Redundancy:true}, decodeCallback); barcode.start();};
+	myParameters[115][0] = function(){barcode.enable({allDecoders:false,i2of5:true,i2of5Redundancy:false}, decodeCallback); barcode.start();};
+	myParameters[116][0] = function(){barcode.enable({allDecoders:false,i2of5:true,i2of5ReportCheckDigit:true,i2of5VerifyCheckDigit:'OPCC',i2of5MinLength:1}, decodeCallback); barcode.start();};
+	myParameters[117][0] = function(){barcode.enable({allDecoders:false,i2of5:true,i2of5ReportCheckDigit:false,i2of5VerifyCheckDigit:'OPCC',i2of5MinLength:1}, decodeCallback); barcode.start();};
+	myParameters[118][0] = function(){barcode.enable({allDecoders:false,i2of5:true,i2of5VerifyCheckDigit:'none',i2of5ReportCheckDigit:true,i2of5MinLength:0,i2of5maxlength:0}, decodeCallback); barcode.start();};
+	myParameters[119][0] = function(){barcode.enable({allDecoders:false,i2of5:true,i2of5VerifyCheckDigit:'USS',i2of5ReportCheckDigit:true,i2of5MinLength:0,i2of5maxlength:0}, decodeCallback); barcode.start();};
+	myParameters[120][0] = function(){barcode.enable({allDecoders:false,i2of5:true,i2of5VerifyCheckDigit:'USS',i2of5ReportCheckDigit:false,i2of5MinLength:0,i2of5maxlength:0}, decodeCallback); barcode.start();};
+	//JapPostal
+	myParameters[121][0] = function(){barcode.enable({allDecoders:false,JapPostal:true}, decodeCallback); barcode.start();};
+	myParameters[122][0] = function(){barcode.enable({allDecoders:true,JapPostal:false}, decodeCallback); barcode.start();};
+	//MacroMicroPDF
+	myParameters[123][0] = function(){barcode.enable({allDecoders:false,MacroMicroPDF:true}, decodeCallback); barcode.start();};
+	myParameters[124][0] = function(){barcode.enable({allDecoders:true,MacroMicroPDF:false}, decodeCallback); barcode.start();};
+	myParameters[125][0] = function(){barcode.enable({allDecoders:true,MacroMicroPDF:true,macroMicroPdfBufferLabels:true,macroMicroPdfReportAppendInfo:false}, decodeCallback); barcode.start();};
+	myParameters[126][0] = function(){barcode.enable({allDecoders:true,MacroMicroPDF:true,macroMicroPdfBufferLabels:false}, decodeCallback); barcode.start();};
+	myParameters[127][0] = function(){barcode.enable({allDecoders:true,MacroMicroPDF:true,macroMicroPdfReportAppendInfo:true}, decodeCallback); barcode.start();};
+	myParameters[128][0] = function(){barcode.enable({allDecoders:true,MacroMicroPDF:true,macroMicroPdfBufferLabels:true,macroMicroPdfExclusive:true}, decodeCallback); barcode.start();};
+	myParameters[129][0] = function(){barcode.enable({allDecoders:true,MacroMicroPDF:true,macroMicroPdfBufferLabels:true,macroMicroPdfExclusive:false}, decodeCallback); barcode.start();};
+	myParameters[130][0] = function(){barcode.enable({allDecoders:true,MacroMicroPDF:true,macroMicroPdfBufferLabels:false,macroMicroPdfConvertToMicroPdf:true}, decodeCallback); barcode.start();};
+	myParameters[131][0] = function(){barcode.enable({allDecoders:true,MacroMicroPDF:true,macroMicroPdfBufferLabels:false,macroMicroPdfConvertToMicroPdf:false}, decodeCallback); barcode.start();};
+	//MacroPDF
+	myParameters[132][0] = function(){barcode.enable({allDecoders:false,macroPdf:true}, decodeCallback); barcode.start();};
+	myParameters[133][0] = function(){barcode.enable({allDecoders:true,MacroPDF:false}, decodeCallback); barcode.start();};
+	myParameters[134][0] = function(){barcode.enable({allDecoders:true,MacroPDF:true,macroPdfBufferLabels:true}, decodeCallback); barcode.start();};
+	myParameters[135][0] = function(){barcode.enable({allDecoders:true,MacroPDF:true,macroPdfBufferLabels:false}, decodeCallback); barcode.start();};
+	myParameters[136][0] = function(){barcode.enable({allDecoders:true,MacroPDF:true,macroPdfBufferLabels:true,macroPdfExclusive:true}, decodeCallback); barcode.start();};
+	myParameters[137][0] = function(){barcode.enable({allDecoders:true,MacroPDF:true,macroPdfBufferLabels:true,macroPdfExclusive:false}, decodeCallback); barcode.start();};
+	myParameters[138][0] = function(){barcode.enable({allDecoders:false,MacroPDF:true,macroPdfBufferLabels:false,macroPdfConvertToPdf417:true}, decodeCallback); barcode.start();};
+	myParameters[139][0] = function(){barcode.enable({allDecoders:false,MacroPDF:true,macroPdfBufferLabels:false,macroPdfConvertToPdf417:false}, decodeCallback); barcode.start();};
+	//MaxiCode
+	myParameters[140][0] = function(){barcode.enable({allDecoders:false,MaxiCode:true}, decodeCallback); barcode.start();};
+	myParameters[141][0] = function(){barcode.enable({allDecoders:true,MaxiCode:false}, decodeCallback); barcode.start();};
+	//MicroPDF
+	myParameters[142][0] = function(){barcode.enable({allDecoders:false,MicroPDF:true}, decodeCallback); barcode.start();};
+	myParameters[143][0] = function(){barcode.enable({allDecoders:true,MicroPDF:false}, decodeCallback); barcode.start();};
+	//msi
+	myParameters[144][0] = function(){barcode.enable({allDecoders:false,msi:true}, decodeCallback); barcode.start();};
+	myParameters[145][0] = function(){barcode.enable({allDecoders:true,msi:false}, decodeCallback); barcode.start();};
+	myParameters[146][0] = function(){barcode.enable({allDecoders:false,msi:true,msicheckdigits:'one',msiCheckDigitScheme:'mod10',msiReportCheckDigit:true}, decodeCallback); barcode.start();};
+	myParameters[147][0] = function(){barcode.enable({allDecoders:false,msi:true,msicheckdigits:'two',msiCheckDigitScheme:'mod11',msiReportCheckDigit:true}, decodeCallback); barcode.start();};
+	myParameters[148][0] = function(){barcode.enable({allDecoders:false,msi:true,msicheckdigits:'one',msiCheckDigitScheme:'mod11',msiReportCheckDigit:true}, decodeCallback); barcode.start();};
+	myParameters[149][0] = function(){barcode.enable({allDecoders:false,msi:true,msicheckdigits:'two',msiCheckDigitScheme:'mod10',msiReportCheckDigit:true}, decodeCallback); barcode.start();};
+	myParameters[150][0] = function(){barcode.enable({allDecoders:false,msi:true,msimaxlength:0,msiMinLength:0}, decodeCallback); barcode.start();};
+	myParameters[151][0] = function(){barcode.enable({allDecoders:false,msi:true,msimaxlength:13}, decodeCallback); barcode.start();};
+	myParameters[152][0] = function(){barcode.enable({allDecoders:false,msi:true,msiMinLength:1}, decodeCallback); barcode.start();};
+	myParameters[153][0] = function(){barcode.enable({allDecoders:false,msi:true,msiMinLength:10}, decodeCallback); barcode.start();};
+	myParameters[154][0] = function(){barcode.enable({allDecoders:false,msi:true,msiRedundancy:true}, decodeCallback); barcode.start();};
+	myParameters[155][0] = function(){barcode.enable({allDecoders:false,msi:true,msiRedundancy:false}, decodeCallback); barcode.start();};
+	myParameters[156][0] = function(){barcode.enable({allDecoders:false,msi:true,msiReportCheckDigit:true}, decodeCallback); barcode.start();};
+	myParameters[157][0] = function(){barcode.enable({allDecoders:false,msi:true,msiReportCheckDigit:false}, decodeCallback); barcode.start();};
+	//PDF417
+	myParameters[158][0] = function(){barcode.enable({allDecoders:false,PDF417:true}, decodeCallback); barcode.start();};
+	myParameters[159][0] = function(){barcode.enable({allDecoders:true,PDF417:false}, decodeCallback); barcode.start();};
+	//Qrcode
+	myParameters[160][0] = function(){barcode.enable({allDecoders:false,Qrcode:true}, decodeCallback); barcode.start();};
+	myParameters[161][0] = function(){barcode.enable({allDecoders:true,Qrcode:false}, decodeCallback); barcode.start();};
+	//rss14
+	myParameters[162][0] = function(){barcode.enable({allDecoders:false,rss14:true}, decodeCallback); barcode.start();};
+	myParameters[163][0] = function(){barcode.enable({allDecoders:true,rss14:false}, decodeCallback); barcode.start();};
+	//rssexp
+	myParameters[164][0] = function(){barcode.enable({allDecoders:false,rssexp:true}, decodeCallback); barcode.start();};
+	myParameters[165][0] = function(){barcode.enable({allDecoders:true,rssexp:false}, decodeCallback); barcode.start();};//TODO GS1 tests
+	//rsslim
+	myParameters[166][0] = function(){barcode.enable({allDecoders:false,rsslim:true}, decodeCallback); barcode.start();};
+	myParameters[167][0] = function(){barcode.enable({allDecoders:true,rsslim:false}, decodeCallback); barcode.start();};
+	//tlc39
+	myParameters[168][0] = function(){barcode.enable({allDecoders:false,tlc39:true,Code39:true,PDF417:true,MicroPDF:true}, decodeCallback); barcode.start();};
+	myParameters[169][0] = function(){barcode.enable({allDecoders:true,tlc39:false}, decodeCallback); barcode.start();};
+	//Trioptic39
+	myParameters[170][0] = function(){barcode.enable({allDecoders:false,Trioptic39:true}, decodeCallback); barcode.start();};
+	myParameters[171][0] = function(){barcode.enable({allDecoders:true,Trioptic39:false}, decodeCallback); barcode.start();};
+	myParameters[172][0] = function(){barcode.enable({allDecoders:false,Trioptic39:true,trioptic39Redundancy:true}, decodeCallback); barcode.start();};
+	myParameters[173][0] = function(){barcode.enable({allDecoders:false,Trioptic39:true,trioptic39Redundancy:false}, decodeCallback); barcode.start();};
+	//UKPostal
+	myParameters[174][0] = function(){barcode.enable({allDecoders:false,UKPostal:true}, decodeCallback); barcode.start();};
+	myParameters[175][0] = function(){barcode.enable({allDecoders:true,UKPostal:false}, decodeCallback); barcode.start();};
+	myParameters[176][0] = function(){barcode.enable({allDecoders:false,UKPostal:true,ukPostalreportCheckDigit:true}, decodeCallback); barcode.start();};
+	myParameters[177][0] = function(){barcode.enable({allDecoders:false,UKPostal:true,ukPostalreportCheckDigit:false}, decodeCallback); barcode.start();};
+	//upca-ean
+	myParameters[178][0] = function(){barcode.enable({allDecoders:false,upca:true,ean13:true,upceanbookland:true}, decodeCallback); barcode.start();};
+	myParameters[179][0] = function(){barcode.enable({allDecoders:false,upca:true,ean13:true,upceanbookland:false}, decodeCallback); barcode.start();};
+	myParameters[180][0] = function(){barcode.enable({allDecoders:false,upca:true,Code128:true,upceancoupon:true}, decodeCallback); barcode.start();};
+	myParameters[181][0] = function(){barcode.enable({allDecoders:false,upca:true,Code128:true,upceancoupon:false}, decodeCallback); barcode.start();};
+	myParameters[182][0] = function(){barcode.enable({allDecoders:false,upca:true,upceanlineardecode:true}, decodeCallback); barcode.start();};
+	myParameters[183][0] = function(){barcode.enable({allDecoders:false,upca:true,upceanlineardecode:false}, decodeCallback); barcode.start();};
+	myParameters[184][0] = function(){barcode.enable({allDecoders:false,upca:true,upceanrandomweightcheckdigit:true}, decodeCallback); barcode.start();};
+	myParameters[185][0] = function(){barcode.enable({allDecoders:false,upca:true,upceanrandomweightcheckdigit:false}, decodeCallback); barcode.start();};
+	myParameters[186][0] = function(){barcode.enable({allDecoders:false,upca:true,upceansupplementalmode:'auto',upceanretrycount:2}, decodeCallback); barcode.start();};
+	myParameters[187][0] = function(){barcode.enable({allDecoders:false,upca:true,upceansupplementalmode:'auto',upceanretrycount:10}, decodeCallback); barcode.start();};
+	myParameters[188][0] = function(){barcode.enable({allDecoders:false,upca:true,upceansupplementalmode:'auto',upceanretrycount:20}, decodeCallback); barcode.start();};
+	myParameters[189][0] = function(){barcode.enable({allDecoders:false,upca:true,upceansupplementalmode:'always',upceansecuritylevel:0}, decodeCallback); barcode.start();};
+	myParameters[190][0] = function(){barcode.enable({allDecoders:false,upca:true,upceansupplementalmode:'always',upceansecuritylevel:1}, decodeCallback); barcode.start();};
+	myParameters[191][0] = function(){barcode.enable({allDecoders:false,upca:true,upceansupplementalmode:'always',upceansecuritylevel:2}, decodeCallback); barcode.start();};
+	myParameters[192][0] = function(){barcode.enable({allDecoders:false,upca:true,upceansupplementalmode:'always',upceansecuritylevel:3}, decodeCallback); barcode.start();};
+	myParameters[193][0] = function(){barcode.enable({allDecoders:true,upca:true,upceansupplementalmode:'always',upceansupplemental2:true}, decodeCallback); barcode.start();};
+	myParameters[194][0] = function(){barcode.enable({allDecoders:true,upca:true,upceansupplementalmode:'always',upceansupplemental2:false}, decodeCallback); barcode.start();};
+	myParameters[195][0] = function(){barcode.enable({allDecoders:true,upca:true,upceansupplementalmode:'always',upceansupplemental5:true}, decodeCallback); barcode.start();};
+	myParameters[196][0] = function(){barcode.enable({allDecoders:true,upca:true,upceansupplementalmode:'always',upceansupplemental5:false}, decodeCallback); barcode.start();};
+	myParameters[197][0] = function(){barcode.enable({allDecoders:true,upca:true,upceansupplementalmode:'none'}, decodeCallback); barcode.start();};
+	myParameters[198][0] = function(){barcode.enable({allDecoders:true,upca:true,upceansupplementalmode:'always'}, decodeCallback); barcode.start();};
+	myParameters[199][0] = function(){barcode.enable({allDecoders:true,upca:true,upceansupplementalmode:'auto'}, decodeCallback); barcode.start();};
+	myParameters[200][0] = function(){barcode.enable({allDecoders:true,upca:true,upceansupplementalmode:smart}, decodeCallback); barcode.start();};
+	myParameters[201][0] = function(){barcode.enable({allDecoders:true,upca:true,upceansupplementalmode:'978or979'}, decodeCallback); barcode.start();};
+	myParameters[202][0] = function(){barcode.enable({allDecoders:true,upca:true,upceansupplemental2:true,upceansupplementalmode:'978or979'}, decodeCallback); barcode.start();};
+	myParameters[203][0] = function(){barcode.enable({allDecoders:true,upca:true,upceansupplemental5:true,upceansupplementalmode:'978or979'}, decodeCallback); barcode.start();};
+	myParameters[204][0] = function(){barcode.enable({allDecoders:true,upca:true,upceansupplementalmode:'978or979'}, decodeCallback); barcode.start();};
+	myParameters[205][0] = function(){barcode.enable({allDecoders:true,upca:true,upceansupplementalmode:'977'}, decodeCallback); barcode.start();};
+	myParameters[206][0] = function(){barcode.enable({allDecoders:true,upca:true,upceansupplemental2:true,upceansupplementalmode:'977'}, decodeCallback); barcode.start();};
+	myParameters[207][0] = function(){barcode.enable({allDecoders:true,upca:true,upceansupplemental5:true,upceansupplementalmode:'977'}, decodeCallback); barcode.start();};
+	myParameters[208][0] = function(){barcode.enable({allDecoders:true,upca:true,upceansupplementalmode:'977'}, decodeCallback); barcode.start();};
+	myParameters[209][0] = function(){barcode.enable({allDecoders:true,upca:true,upceansupplementalmode:'414or419or434or439'}, decodeCallback); barcode.start();};
+	myParameters[210][0] = function(){barcode.enable({allDecoders:true,upca:true,upceansupplementalmode:'414or419or434or439'}, decodeCallback); barcode.start();};
+	myParameters[211][0] = function(){barcode.enable({allDecoders:true,upca:true,upceansupplementalmode:'414or419or434or439'}, decodeCallback); barcode.start();};
+	myParameters[212][0] = function(){barcode.enable({allDecoders:true,upca:true,upceansupplementalmode:'414or419or434or439'}, decodeCallback); barcode.start();};
+	myParameters[213][0] = function(){barcode.enable({allDecoders:true,upca:true,upceansupplementalmode:'378or379'}, decodeCallback); barcode.start();};
+	myParameters[214][0] = function(){barcode.enable({allDecoders:true,upca:true,upceansupplementalmode:'378or379'}, decodeCallback); barcode.start();};
+	myParameters[215][0] = function(){barcode.enable({allDecoders:true,upca:true,upceansupplementalmode:'378or379'}, decodeCallback); barcode.start();};
+	myParameters[216][0] = function(){barcode.enable({allDecoders:true,upca:true,upceansupplementalmode:'378or379'}, decodeCallback); barcode.start();};
+	myParameters[217][0] = function(){barcode.enable({allDecoders:true,upca:true,upceansupplementalmode:'auto',upceanretrycount:15}, decodeCallback); barcode.start();};
+	myParameters[218][0] = function(){barcode.enable({allDecoders:true,upca:true,upceansupplementalmode:'auto',upceanretrycount:21}, decodeCallback); barcode.start();};
+	myParameters[219][0] = function(){barcode.enable({allDecoders:true,ean13:true,upcEanBooklandFormat:'Isbn10',upceanbookland:true}, decodeCallback); barcode.start();};
+	myParameters[220][0] = function(){barcode.enable({allDecoders:true,ean13:true,upcEanBooklandFormat:'Isbn13',upceanbookland:true}, decodeCallback); barcode.start();};
+	myParameters[221][0] = function(){barcode.enable({allDecoders:true,ean13:true,upcEanConvertRssToUpcEan:true}, decodeCallback); barcode.start();};
+	myParameters[222][0] = function(){barcode.enable({allDecoders:true,ean13:true,upcEanConvertRssToUpcEan:false}, decodeCallback); barcode.start();};
+	//upca
+	myParameters[223][0] = function(){barcode.enable({allDecoders:false,upca:true}, decodeCallback); barcode.start();};
+	myParameters[224][0] = function(){barcode.enable({allDecoders:true,upca:false}, decodeCallback); barcode.start();};
+	myParameters[225][0] = function(){barcode.enable({allDecoders:false,upca:true,upcapreamble:'none',upcaReportCheckDigit:true}, decodeCallback); barcode.start();};
+	myParameters[226][0] = function(){barcode.enable({allDecoders:false,upca:true,upcapreamble:'systemChar',upcaReportCheckDigit:true}, decodeCallback); barcode.start();};
+	myParameters[227][0] = function(){barcode.enable({allDecoders:false,upca:true,upcapreamble:'countryAndSystemChars',upcaReportCheckDigit:true}, decodeCallback); barcode.start();};
+	myParameters[228][0] = function(){barcode.enable({allDecoders:false,upca:true,upcaReportCheckDigit:true}, decodeCallback); barcode.start();};
+	myParameters[229][0] = function(){barcode.enable({allDecoders:false,upca:true,upcapreamble:'systemChar',upcaReportCheckDigit:false}, decodeCallback); barcode.start();};
+	//upce0
+	myParameters[230][0] = function(){barcode.enable({allDecoders:false,upce0:true}, decodeCallback); barcode.start();};
+	myParameters[231][0] = function(){barcode.enable({allDecoders:true,upce0:false}, decodeCallback); barcode.start();};
+	myParameters[232][0] = function(){barcode.enable({allDecoders:false,upce0:true,upce0ConvertToupca:true}, decodeCallback); barcode.start();};
+	myParameters[233][0] = function(){barcode.enable({allDecoders:false,upce0:true,upce0ConvertToupca:false}, decodeCallback); barcode.start();};
+	myParameters[234][0] = function(){barcode.enable({allDecoders:false,upce0:true,upce0preamble:'none',upce0ReportCheckDigit:true}, decodeCallback); barcode.start();};
+	myParameters[235][0] = function(){barcode.enable({allDecoders:false,upce0:true,upce0preamble:'systemChar',upce0ReportCheckDigit:true}, decodeCallback); barcode.start();};
+	myParameters[236][0] = function(){barcode.enable({allDecoders:false,upce0:true,upce0preamble:'countryAndSystemChars',upce0ReportCheckDigit:true}, decodeCallback); barcode.start();};
+	myParameters[237][0] = function(){barcode.enable({allDecoders:false,upce0:true,upce0ReportCheckDigit:true}, decodeCallback); barcode.start();};
+	myParameters[238][0] = function(){barcode.enable({allDecoders:false,upce0:true,upce0preamble:'countryAndSystemChars',upce0ReportCheckDigit:false}, decodeCallback); barcode.start();};
+	//upce1
+	myParameters[239][0] = function(){barcode.enable({allDecoders:false,upce1:true}, decodeCallback); barcode.start();};
+	myParameters[240][0] = function(){barcode.enable({allDecoders:true,upce1:false}, decodeCallback); barcode.start();};
+	myParameters[241][0] = function(){barcode.enable({allDecoders:false,upce1:true,upce1ConvertToupca:true}, decodeCallback); barcode.start();};
+	myParameters[242][0] = function(){barcode.enable({allDecoders:false,upce1:true,upce1ConvertToupca:false}, decodeCallback); barcode.start();};
+	myParameters[243][0] = function(){barcode.enable({allDecoders:false,upce1:true,upce1preamble:'none',upce1ReportCheckDigit:true}, decodeCallback); barcode.start();};
+	myParameters[244][0] = function(){barcode.enable({allDecoders:false,upce1:true,upce1preamble:'systemChar',upce1ReportCheckDigit:true}, decodeCallback); barcode.start();};
+	myParameters[245][0] = function(){barcode.enable({allDecoders:false,upce1:true,upce1preamble:'countryAndSystemChars',upce1ReportCheckDigit:true}, decodeCallback); barcode.start();};
+	myParameters[246][0] = function(){barcode.enable({allDecoders:false,upce1:true,upce1ReportCheckDigit:true}, decodeCallback); barcode.start();};
+	myParameters[247][0] = function(){barcode.enable({allDecoders:false,upce1:true,upce1preamble:'countryAndSystemChars',upce1ReportCheckDigit:false}, decodeCallback); barcode.start();};
+	//usplanet
+	myParameters[248][0] = function(){barcode.enable({allDecoders:false,usplanet:true}, decodeCallback); barcode.start();};
+	myParameters[249][0] = function(){barcode.enable({allDecoders:true,usplanet:false}, decodeCallback); barcode.start();};
+	myParameters[250][0] = function(){barcode.enable({allDecoders:false,usplanet:true,usPlanetreportCheckDigit:true}, decodeCallback); barcode.start();};
+	myParameters[251][0] = function(){barcode.enable({allDecoders:false,usplanet:true,usPlanetreportCheckDigit:false}, decodeCallback); barcode.start();};
+	//uspostnet
+	myParameters[252][0] = function(){barcode.enable({allDecoders:false,uspostnet:true}, decodeCallback); barcode.start();};
+	myParameters[253][0] = function(){barcode.enable({allDecoders:true,uspostnet:false}, decodeCallback); barcode.start();};
+	myParameters[254][0] = function(){barcode.enable({allDecoders:false,uspostnet:true,usPostNetreportCheckDigit:true}, decodeCallback); barcode.start();};
+	myParameters[255][0] = function(){barcode.enable({allDecoders:false,uspostnet:true,usPostNetreportCheckDigit:false}, decodeCallback); barcode.start();};
+	//Webcode
+	myParameters[256][0] = function(){barcode.enable({allDecoders:false,Webcode:true}, decodeCallback); barcode.start();};
+	myParameters[257][0] = function(){barcode.enable({allDecoders:false,Webcode:true,webcodeDecodeGtSubtype:true}, decodeCallback); barcode.start();};
+	myParameters[258][0] = function(){barcode.enable({allDecoders:false,Webcode:true,webcodeDecodeGtSubtype:false}, decodeCallback); barcode.start();};
+	myParameters[259][0] = function(){barcode.enable({allDecoders:true,Webcode:false}, decodeCallback); barcode.start();};
+	//aztec
+	myParameters[260][0] = function(){barcode.enable({allDecoders:false,aztec:true}, decodeCallback); barcode.start();};
+	myParameters[261][0] = function(){barcode.enable({allDecoders:true,aztec:false}, decodeCallback); barcode.start();};
+	//chinese2of5
+	myParameters[262][0] = function(){barcode.enable({allDecoders:false,chinese2of5:true}, decodeCallback); barcode.start();};
+	myParameters[263][0] = function(){barcode.enable({allDecoders:true,chinese2of5:false}, decodeCallback); barcode.start();};
+	//korean3of5
+	myParameters[264][0] = function(){barcode.enable({allDecoders:false,korean3of5:true}, decodeCallback); barcode.start();};
+	myParameters[265][0] = function(){barcode.enable({allDecoders:true,korean3of5:false}, decodeCallback); barcode.start();};
+	myParameters[266][0] = function(){barcode.enable({allDecoders:false,korean3of5:true,korean3of5redundancy:true}, decodeCallback); barcode.start();};
+	myParameters[267][0] = function(){barcode.enable({allDecoders:true,korean3of5:true,korean3of5redundancy:false}, decodeCallback); barcode.start();};
+	//microqr
+	myParameters[268][0] = function(){barcode.enable({allDecoders:false,microqr:true}, decodeCallback); barcode.start();};
+	myParameters[269][0] = function(){barcode.enable({allDecoders:true,microqr:false}, decodeCallback); barcode.start();};
+	//us4state
+	myParameters[270][0] = function(){barcode.enable({allDecoders:false,us4state:true}, decodeCallback); barcode.start();};
+	myParameters[271][0] = function(){barcode.enable({allDecoders:true,us4state:false}, decodeCallback); barcode.start();};
+	myParameters[272][0] = function(){barcode.enable({allDecoders:false,us4stateFics:true}, decodeCallback); barcode.start();};
+	myParameters[273][0] = function(){barcode.enable({allDecoders:true,us4stateFics:false}, decodeCallback); barcode.start();};
+	//matrix2of5
+	myParameters[274][0] = function(){barcode.enable({allDecoders:false,matrix2of5:true}, decodeCallback); barcode.start();};
+	myParameters[275][0] = function(){barcode.enable({allDecoders:true,matrix2of5:false}, decodeCallback); barcode.start();};
+	myParameters[276][0] = function(){barcode.enable({allDecoders:true,matrix2of5:false,matrix2of5maxlength:1,matrix2of5MinLength:1}, decodeCallback); barcode.start();};
+	myParameters[277][0] = function(){barcode.enable({allDecoders:true,matrix2of5:false,matrix2of5maxlength:20}, decodeCallback); barcode.start();};
+	myParameters[278][0] = function(){barcode.enable({allDecoders:true,matrix2of5:false,matrix2of5MinLength:10}, decodeCallback); barcode.start();};
+	myParameters[279][0] = function(){barcode.enable({allDecoders:true,matrix2of5:false,matrix2of5maxlength:15,matrix2of5MinLength:5}, decodeCallback); barcode.start();};
+	myParameters[280][0] = function(){barcode.enable({allDecoders:false,matrix2of5:true,matrix2of5VerifyCheckDigit:true,matrix2of5ReportCheckDigit:true,matrix2of5MinLength:0}, decodeCallback); barcode.start();};
+	myParameters[281][0] = function(){barcode.enable({allDecoders:false,matrix2of5:true,matrix2of5VerifyCheckDigit:true,matrix2of5ReportCheckDigit:false,matrix2of5MinLength:0}, decodeCallback); barcode.start();};
+	myParameters[282][0] = function(){barcode.enable({allDecoders:false,matrix2of5:true,matrix2of5VerifyCheckDigit:false,matrix2of5ReportCheckDigit:false,matrix2of5MinLength:0}, decodeCallback); barcode.start();};
+	myParameters[283][0] = function(){barcode.enable({allDecoders:false,Code128:true}, decodeCallback); barcode.start();};
+	
+	//alldecoders
+	myParameters[0][1]=true;
+	myParameters[1][1]=false;
+	//auspostal
+	myParameters[2][1]="11,01234567,63 59 52 57";
+	myParameters[3][1]=false;
+	//canpostal
+	myParameters[4][1]="1300112031112322022100200000001030301322131011011113,0,2";
+	myParameters[5][1]=false;
+	//Codabar
+	myParameters[6][1]="A12345678901234567890122B";
+	myParameters[7][1]=false;
+	myParameters[8][1]="0 1234 56789 0123";
+	myParameters[9][1]="A01234567890123B";
+	myParameters[10][1]="A12345678901234567890122B";
+	myParameters[11][1]=false;
+	myParameters[12][1]="A123456-B";
+	myParameters[13][1]=false;
+	myParameters[14][1]=false;
+	myParameters[15][1]="1234567890123:";
+	myParameters[16][1]="A1234567890123:B";
+	myParameters[17][1]="A50105090$B";
+	myParameters[18][1]="A50105090$B";
+	//Code11
+	myParameters[19][1]="50105090";
+	myParameters[20][1]=false;
+	myParameters[21][1]="12345678901";
+	myParameters[22][1]="12345678901";
+	myParameters[23][1]="123456789019";
+	myParameters[24][1]="1234567890";
+	myParameters[25][1]="1234567890";
+	myParameters[26][1]="12345678901";
+	myParameters[27][1]="1234567890";
+	//code128
+	myParameters[28][1]="50105090";
+	myParameters[29][1]=false;
+	myParameters[30][1]="50105090";
+	myParameters[31][1]=false;
+	myParameters[32][1]="=G1517006000014";
+	myParameters[33][1]=false;
+	myParameters[34][1]="1234567890123456789012";
+	myParameters[35][1]=false;
+	myParameters[36][1]="12345";
+	myParameters[37][1]=false;
+	myParameters[38][1]="1234567890";
+	myParameters[39][1]=false;
+	myParameters[40][1]="50105090";
+	myParameters[41][1]="50105090";
+	myParameters[42][1]="=W12340312345600";
+	myParameters[43][1]="=W12340312345600=<E1234A00";
+	myParameters[44][1]="=W12340312345600=<E1234A00";
+	myParameters[45][1]="All the Pair barcodes of ISBT table should decode (commonly concatenated pair)";
+	myParameters[46][1]="other pair(not commonly concatenated) also can decode";
+	myParameters[47][1]="CODE 128";
+	myParameters[48][1]="CODE 128";
+	myParameters[49][1]="CODE 128";
+	myParameters[50][1]="CODE 128";
+	//code39                
+	myParameters[51][1]="50105090K";
+	myParameters[52][1]=false;
+	myParameters[53][1]="A012354650";
+	myParameters[54][1]="012354650";
+	myParameters[55][1]="012354650";
+	myParameters[56][1]="0CT12U";
+	myParameters[57][1]="$ %/";
+	myParameters[58][1]="/D /E/O";
+	myParameters[59][1]="123456789012345H";
+	myParameters[60][1]=false;
+	myParameters[61][1]="123456L";
+	myParameters[62][1]=false;
+	myParameters[63][1]="50105090K";
+	myParameters[64][1]="50105090K";
+	myParameters[65][1]="50105090K";
+	myParameters[66][1]="50105090";
+	myParameters[67][1]="50105090";
+	myParameters[68][1]="50105090K";
+	myParameters[69][1]="50105090K";
+	myParameters[70][1]="50105090K";
+	myParameters[71][1]="50105090K";
+	myParameters[72][1]="50105090K";
+	//code93
+	myParameters[73][1]="50105090";
+	myParameters[74][1]=false;
+	myParameters[75][1]="1234567890123456789012";
+	myParameters[76][1]=false;
+	myParameters[77][1]="12345";
+	myParameters[78][1]=false;
+	myParameters[79][1]="50105090";
+	myParameters[80][1]="50105090";
+	//compositeAb
+	myParameters[81][1]="010064141499721012345678914";
+	myParameters[82][1]=false;
+	myParameters[83][1]="10064141499721012345678914";
+	myParameters[84][1]="010064141499721012345678914";
+	myParameters[85][1]="010064141499721012345678914";
+	myParameters[86][1]="100641414997 or 010064141499721012345678914";
+	myParameters[87][1]="100641414997";
+	//compositeC
+	myParameters[88][1]="0191234567890121310100035510ABC123%1D90";
+	myParameters[89][1]=false;
+	//d2of5
+	myParameters[90][1]="501050900";
+	myParameters[91][1]=false;
+	myParameters[92][1]=false;
+	myParameters[93][1]="1234565";
+	myParameters[94][1]="1234565";
+	myParameters[95][1]=false;
+	//DataMatrix
+	myParameters[96][1]="0123456789ABCDEFGHIJKLMNOPQRST";
+	myParameters[97][1]=false;
+	//DutchPostal
+	myParameters[98][1]="1230AA156XHUIS";
+	myParameters[99][1]=false;
+	//ean13
+	myParameters[100][1]="9780201546101";
+	myParameters[101][1]=false;
+	//ean8
+	myParameters[102][1]="50105090";
+	myParameters[103][1]=false;
+	myParameters[104][1]="0000050105090";
+	myParameters[105][1]="50105090";
+	//i2of5
+	myParameters[106][1]="0501050900";
+	myParameters[107][1]=false;
+	myParameters[108][1]="5000328748054";
+	myParameters[109][1]="05000328748054";
+	myParameters[110][1]="0123456789012343";
+	myParameters[111][1]=false;
+	myParameters[112][1]="1234567895";
+	myParameters[113][1]=false;
+	myParameters[114][1]="0501050900";
+	myParameters[115][1]="0501050900";
+	myParameters[116][1]="01234566";
+	myParameters[117][1]="0123456";
+	myParameters[118][1]="50105095";
+	myParameters[119][1]="46421548";
+	myParameters[120][1]="4642154";
+	//JapPostal
+	myParameters[121][1]="1698790135";
+	myParameters[122][1]=false;
+	//MacroMicroPDF
+	myParameters[123][1]="THE GETTYSBURG ADDRESS:%0D%0A%0D%0AFour score and seven years ago our fathers brought forth on this%0D%0Acontinent a new nation, conc";
+	myParameters[124][1]=false;
+	myParameters[125][1]="barcode data will appear only after decoding complete MacroMicroPDF sequence.";
+	myParameters[126][1]="barcode data will appear after each decode of MacroMicroPDF sequence.";
+	myParameters[127][1]="decode should successful.";
+	myParameters[128][1]="decode should successful after decoding complete MacroMicroPDF sequence.";
+	myParameters[129][1]="decode should successful after decoding complete MacroMicroPDF sequence.";
+	myParameters[130][1]="Decode should successful and source should be of MicroPDF type";
+	myParameters[131][1]="Decode should successful and source should be of MACROMICROPDF type";
+	//MacroPDF
+	myParameters[132][1]="012345,<.>/?kla&*()'~-_=+\ABCDEFghijklmnoPQRSTUVWXYZabcdefGHI";
+	myParameters[133][1]=false;
+	myParameters[134][1]="barcode data will appear only after decoding complete MacroPDF sequence.";
+	myParameters[135][1]="barcode data will appear after each decode of MacroPDF sequence";
+	myParameters[136][1]="barcode data will appear only after decoding complete MacroPDF sequence.";
+	myParameters[137][1]="barcode data will appear only after decoding complete MacroPDF sequence.";
+	myParameters[138][1]="Decode should successful and source should be of PDF417 type";
+	myParameters[139][1]="Decode should successful and source should be of MACROPDF type";
+	//MaxiCode
+	myParameters[140][1]="431991111%1D420%1D196%1D6759 Port Road GroveportOH";
+	myParameters[141][1]=false;
+	//MicroPDF
+	myParameters[142][1]="Symbol PocketBrowser";
+	myParameters[143][1]=false;
+	//msi
+	myParameters[144][1]="50105090";
+	myParameters[145][1]=false;
+	myParameters[146][1]="20205977";
+	myParameters[147][1]="11882276584";
+	myParameters[148][1]="11882276584";
+	myParameters[149][1]="4131216667";
+	myParameters[150][1]="1234567890123456789012";
+	myParameters[151][1]=false;
+	myParameters[152][1]="50105090";
+	myParameters[153][1]=false;
+	myParameters[154][1]="50105090";
+	myParameters[155][1]="50105090";
+	myParameters[156][1]="501050900";
+	myParameters[157][1]="50105090";
+	//PDF417
+	myParameters[158][1]="ABCDEFGHIJK";
+	myParameters[159][1]=false;
+	//Qrcode
+	myParameters[160][1]="0123456789abcdefghijklmnop";
+	myParameters[161][1]=false;
+	//rss14
+	myParameters[162][1]="0120012345678909";
+	myParameters[163][1]=false;
+	//rssexp
+	myParameters[164][1]="0198898765432106320201234515991231";
+	myParameters[165][1]=false;
+	//rsslim
+	myParameters[166][1]="0115012345678907";
+	myParameters[167][1]=false;
+	//tlc39
+	myParameters[168][1]="[)>%1D06%1D6P123456%1DSABCD12345678901234%1D%1D";
+	myParameters[169][1]=false;
+	//Trioptic39
+	myParameters[170][1]="Y10345";
+	myParameters[171][1]=false;
+	myParameters[172][1]="Y10345";
+	myParameters[173][1]="Y10345";
+	//UKPostal
+	myParameters[174][1]="N211QT";
+	myParameters[175][1]=false;
+	myParameters[176][1]="N211QTR";
+	myParameters[177][1]="N211QT";
+	//upca-ean
+	myParameters[178][1]="0201608375";
+	myParameters[179][1]="9780201608373";
+	myParameters[180][1]="5446000005538100093619";
+	myParameters[181][1]="544600000553";
+	myParameters[182][1]="037812345678";
+	myParameters[183][1]="037812345678";
+	myParameters[184][1]="037812345678";
+	myParameters[185][1]="037812345678";
+	myParameters[186][1]="09781234567212";
+	myParameters[187][1]="09781234567212";
+	myParameters[188][1]="01234567890512345";
+	myParameters[189][1]="09781234567212";
+	myParameters[190][1]="09781234567212";
+	myParameters[191][1]="01234567890599";
+	myParameters[192][1]="01234567890599";
+	myParameters[193][1]="09781234567212";
+	myParameters[194][1]=false;
+	myParameters[195][1]="09781234567212345";
+	myParameters[196][1]=false;
+	myParameters[197][1]="097812345672";
+	myParameters[198][1]="09781234567212";
+	myParameters[199][1]="09781234567212 or 097812345672";
+	myParameters[200][1]="097812345672";
+	myParameters[201][1]="9791234567896";
+	myParameters[202][1]="979123456789612";
+	myParameters[203][1]="979123456789612345";
+	myParameters[204][1]="037812345678";
+	myParameters[205][1]="9771234567898";
+	myParameters[206][1]="977123456789812";
+	myParameters[207][1]="977123456789812345";
+	myParameters[208][1]="4391234567893";
+	myParameters[209][1]="4141234567894";
+	myParameters[210][1]="414123456789412";
+	myParameters[211][1]="414123456789412345";
+	myParameters[212][1]="9781234567897";        
+	myParameters[213][1]="3781234567893";
+	myParameters[214][1]="378123456789312";
+	myParameters[215][1]="378123456789312345";
+	myParameters[216][1]="9771234567898";
+	myParameters[217][1]="09781234567212";
+	myParameters[218][1]="09781234567212";
+	myParameters[219][1]="0201608375";
+	myParameters[220][1]="0911261095";        
+	myParameters[221][1]="Decode should be successful and souce should be of UPC/EAN type.";
+	myParameters[222][1]="Decode should be successful and souce should be of type RSS14";        
+	//upca
+	myParameters[223][1]="100864216736";
+	myParameters[224][1]=false;
+	myParameters[225][1]="00864216736";
+	myParameters[226][1]="100864216736";
+	myParameters[227][1]="0100864216736";
+	myParameters[228][1]="100864216736";
+	myParameters[229][1]="10086421673";
+	//upce0
+	myParameters[230][1]="173559";
+	myParameters[231][1]=false;
+	myParameters[232][1]="017355000098";
+	myParameters[233][1]="173559";
+	myParameters[234][1]="1735598";
+	myParameters[235][1]="01735598";
+	myParameters[236][1]="001735598";
+	myParameters[237][1]="1735598";
+	myParameters[238][1]="00173559";
+	//upce1
+	myParameters[239][1]="234567";
+	myParameters[240][1]=false;
+	myParameters[241][1]="123456000070";
+	myParameters[242][1]="234567";
+	myParameters[243][1]="2345670";
+	myParameters[244][1]="12345670";
+	myParameters[245][1]="012345670";
+	myParameters[246][1]="2345670";
+	myParameters[247][1]="01234567";
+	//usplanet
+	myParameters[248][1]="041235";
+	myParameters[249][1]=false;
+	myParameters[250][1]="";
+	myParameters[251][1]="";       
+	//uspostnet
+	myParameters[252][1]="11784";
+	myParameters[253][1]=false;
+	myParameters[254][1]="";
+	myParameters[255][1]=""; 
+	//Webcode       
+	myParameters[256][1]="1234";
+	myParameters[257][1]="1234";
+	myParameters[258][1]="1234";
+	myParameters[259][1]=false;
+	//aztec        
+	myParameters[260][1]="http://elevateprinting.com";
+	myParameters[261][1]=false;
+	//chinese2of5
+	myParameters[262][1]="45454545454";
+	myParameters[263][1]=false;
+	//korean3of5
+	myParameters[264][1]="131000";
+	myParameters[265][1]=false;
+	myParameters[266][1]="131000";
+	myParameters[267][1]="131000"; 
+	//microqr        
+	myParameters[268][1]="Example";
+	myParameters[269][1]=false;
+	//us4state
+	myParameters[270][1]="9476543210012345678998690955102";
+	myParameters[271][1]=false;
+	//us4stateFics
+	myParameters[272][1]="J18CUSA81EN100400401870T";
+	myParameters[273][1]=false;   
+	//matrix2of5 
+	myParameters[274][1]="09080706055";
+	myParameters[275][1]=false;    
+	myParameters[276][1]="";
+	myParameters[277][1]="";          
+	myParameters[278][1]="";
+	myParameters[279][1]="";  
+	myParameters[280][1]="";
+	myParameters[281][1]="";
+	myParameters[282][1]="";
+	myParameters[283][1]="";
+	
+	myParameters[0][2] = 1;
+	myParameters[1][2] = 1;
+	myParameters[2][2] = 3;
+	myParameters[3][2] = 3;
+	myParameters[4][2] = 4;
+	myParameters[5][2] = 4;
+	myParameters[6][2] = 6;
+	myParameters[7][2] = 6;
+	myParameters[8][2] = 7;
+	myParameters[9][2] = 7;
+	myParameters[10][2] = 6;
+	myParameters[11][2] = 6;
+	myParameters[12][2] = 8;
+	myParameters[13][2] = 8;
+	myParameters[14][2] = 8;
+	myParameters[15][2] = 9;
+	myParameters[16][2] = 9;
+	myParameters[17][2] = 10;
+	myParameters[18][2] = 10;
+	myParameters[19][2] = 11;
+	myParameters[20][2] = 11;
+	myParameters[21][2] = 12;
+	myParameters[22][2] = 12;
+	myParameters[23][2] = 13;
+	myParameters[24][2] = 14;
+	myParameters[25][2] = 14;
+	myParameters[26][2] = 14;
+	myParameters[27][2] = 14;
+	myParameters[28][2] = 15;
+	myParameters[29][2] = 15;
+	myParameters[30][2] = 16;
+	myParameters[31][2] = 16;
+	myParameters[32][2] = 17;
+	myParameters[33][2] = 17;
+	myParameters[34][2] = 18;
+	myParameters[35][2] = 18;
+	myParameters[36][2] = 19;
+	myParameters[37][2] = 19;
+	myParameters[38][2] = 20;
+	myParameters[39][2] = 20;
+	myParameters[40][2] = 21;
+	myParameters[41][2] = 21;
+	myParameters[42][2] = false;//?
+	myParameters[43][2] = false;//?
+	myParameters[44][2] = false;//?
+	myParameters[45][2] = false;//?
+	myParameters[46][2] = false;//?
+	myParameters[47][2] = false;
+	myParameters[48][2] = false;
+	myParameters[49][2] = false;
+	myParameters[50][2] = false;
+	myParameters[51][2] = 22;
+	myParameters[52][2] = 22;
+	myParameters[53][2] = 23;
+	myParameters[54][2] = 23;
+	myParameters[55][2] = 23;
+	myParameters[56][2] = 23;
+	myParameters[57][2] = 24;
+	myParameters[58][2] = 24;
+	myParameters[59][2] = 25;
+	myParameters[60][2] = 25;
+	myParameters[61][2] = 26;
+	myParameters[62][2] = 26;
+	myParameters[63][2] = 27;
+	myParameters[64][2] = 27;
+	myParameters[65][2] = false;
+	myParameters[66][2] = false;
+	myParameters[67][2] = false;
+	myParameters[68][2] = false;
+	myParameters[69][2] = false;
+	myParameters[70][2] = false;
+	myParameters[71][2] = false;
+	myParameters[72][2] = false;
+	myParameters[73][2] = 28;
+	myParameters[74][2] = 28;
+	myParameters[75][2] = 29;
+	myParameters[76][2] = 29;
+	myParameters[77][2] = 30;
+	myParameters[78][2] = 30;
+	myParameters[79][2] = 31;
+	myParameters[80][2] = 31;
+	myParameters[81][2] = 32;
+	myParameters[82][2] = 32;
+	myParameters[83][2] = 32;//?
+	myParameters[84][2] = 32;//?
+	myParameters[85][2] = 32;//?
+	myParameters[86][2] = false;//?
+	myParameters[87][2] = 32;//?
+	myParameters[88][2] = 33;
+	myParameters[89][2] = 33;
+	myParameters[90][2] = 34;
+	myParameters[91][2] = 34;
+	myParameters[92][2] = 35;
+	myParameters[93][2] = 36;
+	myParameters[94][2] = 36;
+	myParameters[95][2] = 36;
+	myParameters[96][2] = 37;
+	myParameters[97][2] = 37;
+	myParameters[98][2] = 38;
+	myParameters[99][2] = 38;
+	myParameters[100][2] = 39;
+	myParameters[101][2] = 39;
+	myParameters[102][2] = 40;
+	myParameters[103][2] = 40;
+	myParameters[104][2] = 40;
+	myParameters[105][2] = 40;
+	myParameters[106][2] = 41;
+	myParameters[107][2] = 41;
+	myParameters[108][2] = 42;
+	myParameters[109][2] = 42;
+	myParameters[110][2] = 43;
+	myParameters[111][2] = 43;
+	myParameters[112][2] = 44;
+	myParameters[113][2] = 44;
+	myParameters[114][2] = 45;
+	myParameters[115][2] = 45;
+	myParameters[116][2] = 49;
+	myParameters[117][2] = 49;
+	myParameters[118][2] = 47;
+	myParameters[119][2] = 48;
+	myParameters[120][2] = 48;
+	myParameters[121][2] = 50;
+	myParameters[122][2] = 50;
+	myParameters[123][2] = 51;
+	myParameters[124][2] = 51;
+	myParameters[125][2] = false;
+	myParameters[126][2] = false;
+	myParameters[127][2] = false;
+	myParameters[128][2] = false;
+	myParameters[129][2] = false;
+	myParameters[130][2] = false;
+	myParameters[131][2] = false;
+	myParameters[132][2] = 52;
+	myParameters[133][2] = 52;
+	myParameters[134][2] = 52;
+	myParameters[135][2] = 52;
+	myParameters[136][2] = 52;
+	myParameters[137][2] = 52;
+	myParameters[138][2] = 52;
+	myParameters[139][2] = 52;
+	myParameters[140][2] = 53;
+	myParameters[141][2] = 53;
+	myParameters[142][2] = 54;
+	myParameters[143][2] = 54;
+	myParameters[144][2] = 55;
+	myParameters[145][2] = 55;
+	myParameters[146][2] = 56;
+	myParameters[147][2] = 57;
+	myParameters[148][2] = 58;
+	myParameters[149][2] = 59;
+	myParameters[150][2] = 60;
+	myParameters[151][2] = 60;
+	myParameters[152][2] = 61;
+	myParameters[153][2] = 61;
+	myParameters[154][2] = 61;
+	myParameters[155][2] = 61;
+	myParameters[156][2] = 61;
+	myParameters[157][2] = 61;
+	myParameters[158][2] = 62;
+	myParameters[159][2] = 62;
+	myParameters[160][2] = 63;
+	myParameters[161][2] = 63;
+	myParameters[162][2] = 64;
+	myParameters[163][2] = 64;
+	myParameters[164][2] = 65;
+	myParameters[165][2] = 65;
+	myParameters[166][2] = 66;
+	myParameters[167][2] = 66;
+	myParameters[168][2] = 68;
+	myParameters[169][2] = 68;
+	myParameters[170][2] = 69;
+	myParameters[171][2] = 69;
+	myParameters[172][2] = 69;
+	myParameters[173][2] = 69;
+	myParameters[174][2] = 70;
+	myParameters[175][2] = 70;
+	myParameters[176][2] = 70;
+	myParameters[177][2] = 70;
+	myParameters[178][2] = 71;
+	myParameters[179][2] = 71;
+	myParameters[180][2] = 72;
+	myParameters[181][2] = 72;
+	myParameters[182][2] = 73;
+	myParameters[183][2] = 73;
+	myParameters[184][2] = 73;
+	myParameters[185][2] = 73;
+	myParameters[186][2] = 74;
+	myParameters[187][2] = 74;
+	myParameters[188][2] = 74;
+	myParameters[189][2] = 74;
+	myParameters[190][2] = 74;
+	myParameters[191][2] = 74;
+	myParameters[192][2] = 74;
+	myParameters[193][2] = 74;
+	myParameters[194][2] = 74;
+	myParameters[195][2] = 75;
+	myParameters[196][2] = 75;
+	myParameters[197][2] = false;
+	myParameters[198][2] = false;
+	myParameters[199][2] = false;
+	myParameters[200][2] = false;
+	myParameters[201][2] = false;
+	myParameters[202][2] = false;
+	myParameters[203][2] = false;
+	myParameters[204][2] = false;
+	myParameters[205][2] = false;
+	myParameters[206][2] = false;
+	myParameters[207][2] = false;
+	myParameters[208][2] = false;
+	myParameters[209][2] = false;
+	myParameters[210][2] = false;
+	myParameters[211][2] = false;
+	myParameters[212][2] = false;
+	myParameters[213][2] = false;
+	myParameters[214][2] = false;
+	myParameters[215][2] = false;
+	myParameters[216][2] = false;
+	myParameters[217][2] = false;
+	myParameters[218][2] = false;
+	myParameters[219][2] = false;
+	myParameters[220][2] = false;
+	myParameters[221][2] = false;
+	myParameters[222][2] = false;
+	myParameters[223][2] = 77;
+	myParameters[224][2] = 77;
+	myParameters[225][2] = 77;
+	myParameters[226][2] = 77;
+	myParameters[227][2] = 77;
+	myParameters[228][2] = 77;
+	myParameters[229][2] = 77;
+	myParameters[230][2] = 78;
+	myParameters[231][2] = 78;
+	myParameters[232][2] = 78;
+	myParameters[233][2] = 78;
+	myParameters[234][2] = 78;
+	myParameters[235][2] = 78;
+	myParameters[236][2] = 78;
+	myParameters[237][2] = 78;
+	myParameters[238][2] = 78;
+	myParameters[239][2] = 79;
+	myParameters[240][2] = 79;
+	myParameters[241][2] = 79;
+	myParameters[242][2] = 79;
+	myParameters[243][2] = 79;
+	myParameters[244][2] = 79;
+	myParameters[245][2] = 79;
+	myParameters[246][2] = 79;
+	myParameters[247][2] = 79;
+	myParameters[248][2] = 80;
+	myParameters[249][2] = 80;
+	myParameters[250][2] = 80;
+	myParameters[251][2] = 80;
+	myParameters[252][2] = 81;
+	myParameters[253][2] = 81;
+	myParameters[254][2] = 81;
+	myParameters[255][2] = 81;
+	myParameters[256][2] = 82;
+	myParameters[257][2] = 82;
+	myParameters[258][2] = 82;
+	myParameters[259][2] = 82;
+	myParameters[260][2] = 83;
+	myParameters[261][2] = 83;
+	myParameters[262][2] = 84;
+	myParameters[263][2] = 84;
+	myParameters[264][2] = 85;
+	myParameters[265][2] = 85;
+	myParameters[266][2] = 85;
+	myParameters[267][2] = 85;
+	myParameters[268][2] = 86;
+	myParameters[269][2] = 86;
+	myParameters[270][2] = 87;
+	myParameters[271][2] = 87;
+	myParameters[272][2] = false;
+	myParameters[273][2] = false;
+	myParameters[274][2] = false;
+	myParameters[275][2] = false;
+	myParameters[276][2] = false;
+	myParameters[277][2] = false;
+	myParameters[278][2] = false;
+	myParameters[279][2] = false;
+	myParameters[280][2] = false;
+	myParameters[281][2] = false;
+	myParameters[282][2] = false;
+	myParameters[283][2] = false;
+	
+	myParameters[0][3] = '';
+	myParameters[1][3] = '';
+	myParameters[2][3] = '';
+	myParameters[3][3] = '';
+	myParameters[4][3] = '';
+	myParameters[5][3] = '';
+	myParameters[6][3] = '';
+	myParameters[7][3] = '';
+	myParameters[8][3] = '';
+	myParameters[9][3] = '';
+	myParameters[10][3] = '';
+	myParameters[11][3] = '';
+	myParameters[12][3] = '';
+	myParameters[13][3] = '';
+	myParameters[14][3] = '';
+	myParameters[15][3] = '';
+	myParameters[16][3] = '';
+	myParameters[17][3] = '';
+	myParameters[18][3] = '';
+	myParameters[19][3] = '';
+	myParameters[20][3] = '';
+	myParameters[21][3] = '';
+	myParameters[22][3] = '';
+	myParameters[23][3] = '';
+	myParameters[24][3] = '';
+	myParameters[25][3] = '';
+	myParameters[26][3] = '';
+	myParameters[27][3] = '';
+	myParameters[28][3] = '';
+	myParameters[29][3] = '';
+	myParameters[30][3] = '';
+	myParameters[31][3] = '';
+	myParameters[32][3] = '';
+	myParameters[33][3] = '';
+	myParameters[34][3] = '';
+	myParameters[35][3] = '';
+	myParameters[36][3] = '';
+	myParameters[37][3] = '';
+	myParameters[38][3] = '';
+	myParameters[39][3] = '';
+	myParameters[40][3] = '';
+	myParameters[41][3] = '';
+	myParameters[42][3] = '';
+	myParameters[43][3] = '';
+	myParameters[44][3] = '';
+	myParameters[45][3] = '';
+	myParameters[46][3] = '';
+	myParameters[47][3] = '';
+	myParameters[48][3] = '';
+	myParameters[49][3] = '';
+	myParameters[50][3] = '';
+	myParameters[51][3] = '';
+	myParameters[52][3] = '';
+	myParameters[53][3] = '';
+	myParameters[54][3] = '';
+	myParameters[55][3] = '';
+	myParameters[56][3] = '';
+	myParameters[57][3] = '';
+	myParameters[58][3] = '';
+	myParameters[59][3] = '';
+	myParameters[60][3] = '';
+	myParameters[61][3] = '';
+	myParameters[62][3] = '';
+	myParameters[63][3] = '';
+	myParameters[64][3] = '';
+	myParameters[65][3] = '';
+	myParameters[66][3] = '';
+	myParameters[67][3] = '';
+	myParameters[68][3] = '';
+	myParameters[69][3] = '';
+	myParameters[70][3] = '';
+	myParameters[71][3] = '';
+	myParameters[72][3] = '';
+	myParameters[73][3] = '';
+	myParameters[74][3] = '';
+	myParameters[75][3] = '';
+	myParameters[76][3] = '';
+	myParameters[77][3] = '';
+	myParameters[78][3] = '';
+	myParameters[79][3] = '';
+	myParameters[80][3] = '';
+	myParameters[81][3] = '';
+	myParameters[82][3] = '';
+	myParameters[83][3] = '';
+	myParameters[84][3] = '';
+	myParameters[85][3] = '';
+	myParameters[86][3] = '';
+	myParameters[87][3] = '';
+	myParameters[88][3] = '';
+	myParameters[89][3] = '';
+	myParameters[90][3] = '';
+	myParameters[91][3] = '';
+	myParameters[92][3] = '';
+	myParameters[93][3] = '';
+	myParameters[94][3] = '';
+	myParameters[95][3] = '';
+	myParameters[96][3] = '';
+	myParameters[97][3] = '';
+	myParameters[98][3] = '';
+	myParameters[99][3] = '';
+	myParameters[100][3] = '';
+	myParameters[101][3] = '';
+	myParameters[102][3] = '';
+	myParameters[103][3] = '';
+	myParameters[104][3] = '';
+	myParameters[105][3] = '';
+	myParameters[106][3] = '';
+	myParameters[107][3] = '';
+	myParameters[108][3] = '';
+	myParameters[109][3] = '';
+	myParameters[110][3] = '';
+	myParameters[111][3] = '';
+	myParameters[112][3] = '';
+	myParameters[113][3] = '';
+	myParameters[114][3] = '';
+	myParameters[115][3] = '';
+	myParameters[116][3] = '';
+	myParameters[117][3] = '';
+	myParameters[118][3] = '';
+	myParameters[119][3] = '';
+	myParameters[120][3] = '';
+	myParameters[121][3] = '';
+	myParameters[122][3] = '';
+	myParameters[123][3] = '';
+	myParameters[124][3] = '';
+	myParameters[125][3] = '';
+	myParameters[126][3] = '';
+	myParameters[127][3] = '';
+	myParameters[128][3] = '';
+	myParameters[129][3] = '';
+	myParameters[130][3] = '';
+	myParameters[131][3] = '';
+	myParameters[132][3] = '';
+	myParameters[133][3] = '';
+	myParameters[134][3] = '';
+	myParameters[135][3] = '';
+	myParameters[136][3] = '';
+	myParameters[137][3] = '';
+	myParameters[138][3] = '';
+	myParameters[139][3] = '';
+	myParameters[140][3] = '';
+	myParameters[141][3] = '';
+	myParameters[142][3] = '';
+	myParameters[143][3] = '';
+	myParameters[144][3] = '';
+	myParameters[145][3] = '';
+	myParameters[146][3] = '';
+	myParameters[147][3] = '';
+	myParameters[148][3] = '';
+	myParameters[149][3] = '';
+	myParameters[150][3] = '';
+	myParameters[151][3] = '';
+	myParameters[152][3] = '';
+	myParameters[153][3] = '';
+	myParameters[154][3] = '';
+	myParameters[155][3] = '';
+	myParameters[156][3] = '';
+	myParameters[157][3] = '';
+	myParameters[158][3] = '';
+	myParameters[159][3] = '';
+	myParameters[160][3] = '';
+	myParameters[161][3] = '';
+	myParameters[162][3] = '';
+	myParameters[163][3] = '';
+	myParameters[164][3] = '';
+	myParameters[165][3] = '';
+	myParameters[166][3] = '';
+	myParameters[167][3] = '';
+	myParameters[168][3] = '';
+	myParameters[169][3] = '';
+	myParameters[170][3] = '';
+	myParameters[171][3] = '';
+	myParameters[172][3] = '';
+	myParameters[173][3] = '';
+	myParameters[174][3] = '';
+	myParameters[175][3] = '';
+	myParameters[176][3] = '';
+	myParameters[177][3] = '';
+	myParameters[178][3] = '';
+	myParameters[179][3] = '';
+	myParameters[180][3] = '';
+	myParameters[181][3] = '';
+	myParameters[182][3] = '';
+	myParameters[183][3] = '';
+	myParameters[184][3] = '';
+	myParameters[185][3] = '';
+	myParameters[186][3] = '';
+	myParameters[187][3] = '';
+	myParameters[188][3] = '';
+	myParameters[189][3] = '';
+	myParameters[190][3] = '';
+	myParameters[191][3] = '';
+	myParameters[192][3] = '';
+	myParameters[193][3] = '';
+	myParameters[194][3] = '';
+	myParameters[195][3] = '';
+	myParameters[196][3] = '';
+	myParameters[197][3] = '';
+	myParameters[198][3] = '';
+	myParameters[199][3] = '';
+	myParameters[200][3] = '';
+	myParameters[201][3] = '';
+	myParameters[202][3] = '';
+	myParameters[203][3] = '';
+	myParameters[204][3] = '';
+	myParameters[205][3] = '';
+	myParameters[206][3] = '';
+	myParameters[207][3] = '';
+	myParameters[208][3] = '';
+	myParameters[209][3] = '';
+	myParameters[210][3] = '';
+	myParameters[211][3] = '';
+	myParameters[212][3] = '';
+	myParameters[213][3] = '';
+	myParameters[214][3] = '';
+	myParameters[215][3] = '';
+	myParameters[216][3] = '';
+	myParameters[217][3] = '';
+	myParameters[218][3] = '';
+	myParameters[219][3] = '';
+	myParameters[220][3] = '';
+	myParameters[221][3] = '';
+	myParameters[222][3] = '';
+	myParameters[223][3] = '';
+	myParameters[224][3] = '';
+	myParameters[225][3] = '';
+	myParameters[226][3] = '';
+	myParameters[227][3] = '';
+	myParameters[228][3] = '';
+	myParameters[229][3] = '';
+	myParameters[230][3] = '';
+	myParameters[231][3] = '';
+	myParameters[232][3] = '';
+	myParameters[233][3] = '';
+	myParameters[234][3] = '';
+	myParameters[235][3] = '';
+	myParameters[236][3] = '';
+	myParameters[237][3] = '';
+	myParameters[238][3] = '';
+	myParameters[239][3] = '';
+	myParameters[240][3] = '';
+	myParameters[241][3] = '';
+	myParameters[242][3] = '';
+	myParameters[243][3] = '';
+	myParameters[244][3] = '';
+	myParameters[245][3] = '';
+	myParameters[246][3] = '';
+	myParameters[247][3] = '';
+	myParameters[248][3] = '';
+	myParameters[249][3] = '';
+	myParameters[250][3] = '';
+	myParameters[251][3] = '';
+	myParameters[252][3] = '';
+	myParameters[253][3] = '';
+	myParameters[254][3] = '';
+	myParameters[255][3] = '';
+	myParameters[256][3] = '';
+	myParameters[257][3] = '';
+	myParameters[258][3] = '';
+	myParameters[259][3] = '';
+	myParameters[260][3] = '';
+	myParameters[261][3] = '';
+	myParameters[262][3] = '';
+	myParameters[263][3] = '';
+	myParameters[264][3] = '';
+	myParameters[265][3] = '';
+	myParameters[266][3] = '';
+	myParameters[267][3] = '';
+	myParameters[268][3] = '';
+	myParameters[269][3] = '';
+	myParameters[270][3] = '';
+	myParameters[271][3] = '';
+	myParameters[272][3] = '';
+	myParameters[273][3] = '';
+	myParameters[274][3] = '';
+	myParameters[275][3] = '';
+	myParameters[276][3] = '';
+	myParameters[277][3] = '';
+	myParameters[278][3] = '';
+	myParameters[279][3] = '';
+	myParameters[280][3] = '';
+	myParameters[281][3] = '';
+	myParameters[282][3] = '';
+	myParameters[283][3] = '';
+}
+
+
+function loadEvent()
+{
+	if(console != null) console.log('Initialising results');
+	init();
+	if(console != null) console.log('Setting up barcode extension');
+	setup();
+}
+window.addEventListener('load', loadEvent);
+
+function setup()
+{
+	//Get BarcodeShower's IPAddress
+	barcode = Rho.Barcode.getDefault();
+	barcode.enable({code39:true}, ipAddressCallback);
+	barcode.start();
+}
+
+function start()
+{
+	runNextTest();
+}
+
+function runNextTest()
+{
+	if(console != null) console.log('Running Test: ' + currentTest);
+	for(;currentTest < myParameters.length; currentTest++)
+	{
+		var testImageNumber = myParameters[currentTest][2];
+		if(testImageNumber !== false)
+		{
+			show(testImageNumber);
+			callbackValue = myParameters[currentTest][1];
+			myParameters[currentTest][0]();
+			timeout = setTimeout(stop, 5000);
+			return;
+		}
+		if(console != null) console.log('Ignoring test: ' + currentTest);
+	}
+	end();
+}
+
+function decodeCallback(jsonObject)
+{
+	if(console != null) console.log('Decoded ' + jsonObject.data);
+	clearTimeout(timeout);
+	//TODO work out for non data checks
+	if(jsonObject.data == callbackValue)
+	{
+		passed();
+	}
+	else
+	{
+		failed(expected, actual);
+	}
+	currentTest++;
+	runNextTest();
+}
+
+function ipAddressCallback(jsonObject)
+{
+	if(console != null) console.log('Received IP: ' + jsonObject.data);
+	barcodeShowerIP = jsonObject.data;
+	runNextTest();
+}
+
+function show(barcodeNumber)
+{
+	if(barcodeNumber != currentImage)
+	{
+		if(console != null) console.log('Showing new image: ' + barcodeNumber);
+		currentImage = barcodeNumber;
+		jQuery.ajax({
+			url:    'http://' + barcodeShowerIP + ':8081/app?image=' + barcodeNumber,
+			success: function(result) {console.log('BarcodeShower responded');}, //TODO fail, disconnect
+			async:   false
+		});
+	}
+	//TODO do retests
+}
+
+function stop()
+{
+	if(console != null) console.log('Scanner Stopping');
+	barcode.stop();
+	if(callbackValue === false)
+	{
+		passed();
+	}
+	else
+	{
+		failed(callbackValue, false);
+	}
+	currentTest++;
+	runNextTest();
+}
+
+function passed()
+{
+	div.innerHTML += '<br/>Test ' + currentTest +  ' passed';
+}
+
+function failed(expected, actual)
+{
+	div.innerHTML += '<br/>Test ' + currentTest +  ' failed. Expected: ' + expected + '. Actual: ' + actual;
+}
+
+function end()
+{
+	show(0);//return to IPBarcode
+}
+</script>
+</head>
+<body>
+<div id="out"></div>
+</body>
+</html>

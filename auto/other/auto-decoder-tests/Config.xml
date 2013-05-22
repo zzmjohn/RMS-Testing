@@ -1,0 +1,165 @@
+<?xml version = "1.0"?>
+<!--
+RhoElements Configuration file
+-->
+<Configuration>
+   
+  <DebugButtons>
+    <DebugButtonsEnabled value="0" />
+  </DebugButtons>
+  
+  <WebServer>
+     <Enabled   VALUE="1"/>
+     <Port      VALUE="83"/>
+     <WebFolder VALUE="\"/>
+      <Public   VALUE="1"/>
+  </WebServer>
+
+  <Logger>
+    <LogProtocol   value="FILE"/>
+    <LogPort       value="80"/>
+    <LogURI        value="file://\UserDrive\Log.txt"/>
+    <LogError      value="1"/>
+    <LogWarning    value="1"/>
+    <LogInfo       value="1"/>
+    <LogUser       value="1"/>
+    <LogMemory     value="0"/>
+    <LogMemPeriod  value="5000"/>
+    <LogMaxSize    value="1000"/>
+  </Logger>
+    
+  <FileLocations>
+    <RegEXFile  value="file://%INSTALLDIR%\Config\RegEx.xml"/>
+    <PluginFile value="file://%INSTALLDIR%\Config\Plugin.xml"/>
+  </FileLocations>
+  
+  <Screen>
+    <FullScreen value="1"/>
+  </Screen>
+  
+  <DeviceKeys>
+	<FunctionKeysCapturable	  value="0"/>
+    <EnableFunctionKey_F1     value="0"/>
+    <EnableFunctionKey_F2     value="0"/>
+    <EnableFunctionKey_F3     value="0"/>
+    <EnableFunctionKey_F4     value="0"/>
+    <EnableFunctionKey_F5     value="0"/>
+    <EnableFunctionKey_F6     value="0"/>
+    <EnableFunctionKey_F7     value="0"/>
+    <EnableFunctionKey_F8     value="0"/>
+    <EnableFunctionKey_F9     value="0"/>
+    <EnableFunctionKey_F10    value="0"/>
+    <EnableFunctionKey_F11    value="0"/>
+    <EnableFunctionKey_F12    value="0"/>
+    <EnableApplicationKey_A1  value="0"/>
+    <EnableApplicationKey_A2  value="0"/>
+    <EnableApplicationKey_A3  value="0"/>
+    <EnableApplicationKey_A4  value="0"/>
+    <EnableApplicationKey_A5  value="0"/>
+    <EnableApplicationKey_A6  value="0"/>
+    <EnableApplicationKey_A7  value="0"/>
+    <EnableApplicationKey_A8  value="0"/>
+  </DeviceKeys>
+  
+  <Navigation>
+    <NavTimeout value="45000"/>
+  </Navigation>
+
+  <ScreenOrientation>
+    <AutoRotate value="0" />
+  </ScreenOrientation>
+  
+  <UserData>
+  </UserData>
+    
+  <Applications>
+    <Application>
+      
+	  <HTTP_Proxy value=""/>
+      <General>
+        <Name value="Menu"/>
+        <StartPage value="file:///Application/barc/index.html" name="Menu"/>
+      </General>
+      
+      <WebDB>
+	   	<WebStorageDBPath value="file://\Application\RhoElements"/>
+	   	<WebSQLDBQuota value="3500000"/>
+	  	<WebSQLDBPath value="file://\Application\RhoElements"/>
+	  </WebDB>
+      <ApplicationCache>
+        <ApplicationCachePath VALUE="file://%INSTALLDIR%"/>
+        <ApplicationCacheQuota VALUE="3500000"/>
+      </ApplicationCache>
+
+      <NPAPI>
+        <NPAPIDirectory value="file://%INSTALLDIR%\NPAPI\"/>
+        <Preloads>
+          <PreloadLegacyGeneric value="1"/>
+          <PreloadLegacyODAX    value="1"/>
+          <PreloadLegacyNoSIP   value="1"/>
+          <PreloadLegacyAirBeam value="1"/>
+          <PreloadLegacyAPD     value="1"/>
+          <PreloadJSObjects     value="1"/>
+        </Preloads>
+      </NPAPI>
+      
+      <Preloads>
+      </Preloads>
+	  
+      <ScrollBars>
+        <ScrollBarsEnabled  value="0" />
+      </ScrollBars>
+      
+      <HTMLStyles>
+        <FitToScreenEnabled    value="1" />
+        <ClearTypeEnabled      value="1" />
+        <JavascriptEnabled     value="1" />
+        <TextSelectionEnabled  value="0" />
+        <FontFamily            value="Tahoma" />
+      </HTMLStyles>
+      
+      <SIP>
+        <ResizeOnSIP  value="1"/>
+      </SIP>
+
+      <System>
+        <LowBatteryScan  value="0"/>
+      </System>
+
+      <Sound>
+        <DecodeVolume           value="3"/>
+        <DecodeFrequency        value="0xA28"/>
+        <InvalidDecodeFrequency value="0x9C4"/>
+        <DecodeDuration         value="250"/>
+        <ScanDecodeWav          value=""/>
+        <ScanInvalidWav         value=""/>
+        <ImagerCaptureWav       value=""/>
+      </Sound>
+      
+      <GUI>
+        <SignalRefresh      value="5000"/>
+        <BatteryRefresh     value="5000"/>
+        <HourglassEnabled   value="1" />
+        <HourglassLeft      value="" />
+        <HourglassTop       value="" />
+      </GUI>
+      
+      <Navigation>
+        <BadLinkURI value="file://%INSTALLDIR%\HTML\BadLink.html"/>
+        <UserAgent  value="Mozilla/5.0 (%p) AppleWebKit/%w (KHTML, like Gecko) MotorolaWebKit/%e Safari/%w" />
+      </Navigation>
+      
+      <DeviceKeys>
+        <EnableCtrlKey_A    value="1"/>
+        <EnableCtrlKey_C    value="1"/>
+        <EnableCtrlKey_V    value="1"/>
+        <EnableCtrlKey_O    value="0"/>
+        <EnableCtrlKey_P    value="0"/>
+      </DeviceKeys>
+  
+      <DefaultMetaTags>
+      </DefaultMetaTags>
+    
+    </Application>
+  </Applications>
+</Configuration>
