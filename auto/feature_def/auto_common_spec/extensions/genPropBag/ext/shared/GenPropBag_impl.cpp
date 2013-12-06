@@ -6,12 +6,19 @@ using namespace apiGenerator;
 
 class CGenPropBagImpl: public CGenPropBagBase
 {
+    rho::apiGenerator::CMethodResult m_callback;
 public:
     CGenPropBagImpl(const rho::String& strID): CGenPropBagBase()
     {
     }
 
+    virtual void setCallbackProp(rho::apiGenerator::CMethodResult& oResult) {
+        m_callback = oResult;
+    } 
 
+    virtual void callCallback(rho::apiGenerator::CMethodResult& oResult) {
+        m_callback.callCallback();
+    } 
 };
 
 class CGenPropBagSingleton: public CGenPropBagSingletonBase

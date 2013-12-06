@@ -219,6 +219,19 @@ describe("<generator API specs>", function() {
             });
         });
 
+        it("callback property called", function() {
+            var cbVal = null;
+            Rho.GenPropBag.getDefault().callbackProp = function(v){ cbVal = v; };
+            Rho.GenPropBag.getDefault().callCallback();
+
+            waitsFor(function(){return null != cbVal}, 'Callback should be called', 2000);
+            runs(function() {
+                expect(typeof cbVal).toEqual('string');
+                expect(cbVal.length).toBeGreaterThan(0);
+                expect(cbVal).toEqual("set");
+            });
+        });
+
     });
 
     describe("Enumerate method", function() {
