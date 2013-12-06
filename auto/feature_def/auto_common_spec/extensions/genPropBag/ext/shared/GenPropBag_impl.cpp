@@ -17,7 +17,7 @@ public:
     } 
 
     virtual void callCallback(rho::apiGenerator::CMethodResult& oResult) {
-        m_callback.callCallback();
+        m_callback.set("set");
     } 
 };
 
