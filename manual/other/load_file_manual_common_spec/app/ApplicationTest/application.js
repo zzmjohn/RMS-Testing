@@ -55,7 +55,7 @@ function setTitle(){
 function getTitle() 
 { 
 	var data = Rho.Application.title;
-	$("#Rho_Application_title span.result").text(JSON.stringify(data));
+	$("#Rho_Application_title span.result").text(JSON.stringify(data,null," "));
 }
 
 function setTitleNull(){
@@ -95,12 +95,12 @@ Rho.Application.quit();
 
 function getInvalidSecurityTokenStartPath(){
 var data = Rho.Application.invalidSecurityTokenStartPath;
-$("#Rho_Application_securityToken span.result").text(JSON.stringify(data));
+$("#Rho_Application_securityToken span.result").text(JSON.stringify(data,null," "));
 }
 
 function securityTokenResult(){
 var data = Rho.Application.securityTokenNotPassed;
-$("#Rho_Application_security span.result").text(JSON.stringify(data));	
+$("#Rho_Application_security span.result").text(JSON.stringify(data,null," "));	
 }	
 	
 function applicationNotify(){

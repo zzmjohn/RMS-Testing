@@ -85,7 +85,7 @@ function enableRSMScanner()
 function getpropertywithval(id, propertyval){
 	var data = enumData[i].getProperty(propertyval);
 	var element = "#" + id + " span.result";
-	$(element).text(JSON.stringify(data));
+	$(element).text(JSON.stringify(data,null," "));
 }
 function softstart(scanner){
 	for (var j = 0;j<=scanner;j++){
@@ -237,7 +237,7 @@ function CallbatteryStatus()
 
 function setDomElementText(id, string){
 	var element = "#" + id + " span.result";
-	$(element).text(JSON.stringify(string));
+	$(element).text(JSON.stringify(string,null," "));
 }
 
 function createTabbar() {
@@ -279,30 +279,30 @@ function getRegistrySetting(id)
 {
 	var data = Rho.System.getRegistrySetting({hive: 'HKLM', type: 'Binary', key: 'Software', setting: 'Rho'});	
 	var element = "#" + id + " span.result";
-	$(element).text(JSON.stringify(data));
+	$(element).text(JSON.stringify(data,null," "));
 }	
 
 function deleteRegistrySetting(id)
 {
 	var actual = Rho.System.deleteRegistrySetting({hive: 'HKLM', type: 'Binary', key: 'Software', setting: 'Rho'});
 	var element = "#" + id + " span.result";
-	$(element).text(JSON.stringify(actual));
+	$(element).text(JSON.stringify(actual,null," "));
 }
 function getkeyboardState()
 {
 	data = Rho.System.getProperty('keyboardState');
-	$("#Rho_System_keyboardState span.result").text(JSON.stringify(data));
+	$("#Rho_System_keyboardState span.result").text(JSON.stringify(data,null," "));
 }
 function gethttpProxyURI()
 {
 	data = Rho.System.getProperty('httpProxyURI');
-	$("#Rho_System_httpProxyURI span.result").text(JSON.stringify(data));
+	$("#Rho_System_httpProxyURI span.result").text(JSON.stringify(data,null," "));
 }
 
 function callgetProperty(propertyName)
 {
 	data = Rho.System.getProperty(propertyName);
-	$("#Rho_System_setproperty span.result").text(JSON.stringify(data));
+	$("#Rho_System_setproperty span.result").text(JSON.stringify(data,null," "));
 }
 function getRandomName()
 {
@@ -329,7 +329,7 @@ function createTables(tableNames, id) {
 	db.executeBatchSql(statements.join(';'));
 	data = tableNames.length
 	var element = "#" + id + " span.result";
-	$(element).text(JSON.stringify(data));
+	$(element).text(JSON.stringify(data,null," "));
 };
 		
 function opendatabase_createtable(tables, id)
@@ -515,7 +515,7 @@ function screennormal()
 var screenorientation_callback = function (data){
 
 	orientationType = data;
-	displayResult('DATA:- ',JSON.stringify(orientationType));
+	displayResult('DATA:- ',JSON.stringify(orientationType,null," "));
 	callbackFired = true;
 
 }
@@ -609,7 +609,7 @@ function takecallbackdata(data)
     $("#capturedImage").attr('src', data.imageUri);
 }
 var callbacktake = function (data) {
-	//takecallbackdata(JSON.stringify(data));
+	//takecallbackdata(JSON.stringify(data,null," "));
 	takecallbackdata(data);
 	takecallbackfired = true;
 };
@@ -641,7 +641,7 @@ function signatureclear()
 }
 var callbackVector = function (data) {
 	
-	//vectorcallbackdata(JSON.stringify(data));
+	//vectorcallbackdata(JSON.stringify(data,null," "));
 	vectorcallbackdata(data);
 	takecallbackfired1 = true;
 };	

@@ -46,7 +46,7 @@ describe("Card Reader Test", function() {
 	};
 
 	var enumcallback = function (args){
-		displayResult('DefautlInstance:- ',JSON.stringify(args));
+		displayResult('DefautlInstance:- ',JSON.stringify(args,null," "));
 	};
   
 
@@ -295,8 +295,8 @@ describe("Card Reader Test", function() {
 		{
 			dispTestCaseRunning("VT286-0129 - MSR Card data All Tracks with ananymous callback");
 			dispExpectedResult("Please wait 11 seconds for the Card Reader to open");
-			//Rho.CardReader.open({},function(data){displayResult('DATA :- ',JSON.stringify(data));});
-			Rho.CardReader.open(function(data){displayResult('DATA :- ',JSON.stringify(data));});
+			//Rho.CardReader.open({},function(data){displayResult('DATA :- ',JSON.stringify(data,null," "));});
+			Rho.CardReader.open(function(data){displayResult('DATA :- ',JSON.stringify(data,null," "));});
 			setTimeout(function() {
 				openFlag = true;
 			}, 11000);

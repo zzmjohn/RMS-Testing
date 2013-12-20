@@ -239,7 +239,7 @@ describe("Sensor JS API Test", function() {
 	
 	var makesensorbytype_callback =  function (args){	
 		sensorType = JSON.stringify(args);
-	    displayResult("Output: ",sensorType);
+	    displayResult("Output: ",JSON.stringify(args,null," "));
 	}
 
 

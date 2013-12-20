@@ -1,19 +1,19 @@
 function getCountry()
 {
 	data = Rho.System.getProperty('country');
-	$("#Rho_System_Country span.result").text(JSON.stringify(data));
+	$("#Rho_System_Country span.result").text(JSON.stringify(data,null," "));
 }
 
 function getapplicationIconBadge()
 {
 	data = Rho.System.getProperty('applicationIconBadge');
-	$("#Rho_System_getapplicationIconBadge span.result").text(JSON.stringify(data));
+	$("#Rho_System_getapplicationIconBadge span.result").text(JSON.stringify(data,null," "));
 }
 
 function gethttpProxyURI()
 {
 	data = Rho.System.getProperty('httpProxyURI');
-	$("#Rho_System_httpProxyURI span.result").text(JSON.stringify(data));
+	$("#Rho_System_httpProxyURI span.result").text(JSON.stringify(data,null," "));
 }
 
 
@@ -21,31 +21,31 @@ function getlockWindowSize()
 {
 	//data = Rho.System.getProperty('lockWindowSize');
 	data = Rho.System.lockWindowSize;
-	$("#Rho_System_lockWindowSize span.result").text(JSON.stringify(data));
+	$("#Rho_System_lockWindowSize span.result").text(JSON.stringify(data,null," "));
 }
 
 function getscreenAutoRotate()
 {
 	data = Rho.System.getProperty('screenAutoRotate');
-	$("#Rho_System_screenAutoRotate span.result").text(JSON.stringify(data));
+	$("#Rho_System_screenAutoRotate span.result").text(JSON.stringify(data,null," "));
 }
 
 function getscreenOrientation()
 {
 	data = Rho.System.getProperty('screenOrientation');
-	$("#Rho_System_screenOrientation span.result").text(JSON.stringify(data));
+	$("#Rho_System_screenOrientation span.result").text(JSON.stringify(data,null," "));
 }
 
 function getscreenSleeping()
 {
 	data = Rho.System.getProperty('screenSleeping');
-	$("#Rho_System_screenSleeping span.result").text(JSON.stringify(data));
+	$("#Rho_System_screenSleeping span.result").text(JSON.stringify(data,null," "));
 }
 
 function getkeyboardState()
 {
 	data = Rho.System.getProperty('keyboardState');
-	$("#Rho_System_keyboardState span.result").text(JSON.stringify(data));
+	$("#Rho_System_keyboardState span.result").text(JSON.stringify(data,null," "));
 }
 
 
@@ -134,7 +134,7 @@ function callupdateCurrentBundle()
 function callgetProperty(propertyName)
 {
 	data = Rho.System.getProperty(propertyName);
-	$("#Rho_System_setproperty span.result").text(JSON.stringify(data));
+	$("#Rho_System_setproperty span.result").text(JSON.stringify(data,null," "));
 }
 
 function callsetProperties(propertyName, propertyValue)
@@ -147,7 +147,7 @@ function callsetProperties(propertyName, propertyValue)
 function callgetProperties(propertyName)
 {
 	data = Rho.System.getProperties([propertyName]);
-	$("#Rho_System_getProperties span.result").text(JSON.stringify(data));
+	$("#Rho_System_getProperties span.result").text(JSON.stringify(data,null," "));
 }
 
 function download_filetolocal(srvHttpDownloadImageUrl, filetoinstall)

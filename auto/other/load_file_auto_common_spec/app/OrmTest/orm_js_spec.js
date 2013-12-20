@@ -331,7 +331,7 @@ describe("<ORM module specs>", function() {
         expect(Rho.ORM.getModel('Product')).toBe(Model);
 
         res = db.$execute_sql("SELECT * FROM Product INDEXED BY u1 Where name = 'test' ");
-        console.log("res is: " + JSON.stringify(res));
+        console.log("res is: " + JSON.stringify(res,null," "));
         expect(res[0].map.name).toEqual('test');
         db.$execute_sql("DROP TABLE Product");
     });
@@ -1484,7 +1484,7 @@ describe("<ORM Db Reset specs>", function() {
         var objects_u = db_u.$execute_sql("select * from OBJECT_VALUES");
 
 
-        //dispCurrentProcess(JSON.stringify(objects));
+        //dispCurrentProcess(JSON.stringify(objects,null," "));
         expect(objects[0].map.value).toEqual("test");
         expect(objects_u[0].map.value).toEqual("test_u");
         

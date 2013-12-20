@@ -15,38 +15,15 @@ describe("Card Reader Test", function() {
 	});
 
 	var callbackCardReader = function(args) {
-		var result = '';
-		result += '<br/>Data:- ' + JSON.stringify(args["data"]);
-		result += '<br/>Mode:- ' + JSON.stringify(args["mode"]);
-	    displayResult("Output: ",result);
+	    displayResult("Output: ", JSON.stringify(args,null," "));
     };
 
 	var encrypted_callback =  function (args){
-	
-		var result = '';
-		result += '<br/>Data:- ' + JSON.stringify(args["data"]);
-		result += '<br/>Mode:- ' + JSON.stringify(args["mode"]);
-		result += '<br/>Encryption:- ' + JSON.stringify(args["encryption"]);
-		result += '<br/>RawData:- ' + JSON.stringify(args["rawData"]);
-		result += '<br/>Track1:- ' + JSON.stringify(args["track1"]);
-		result += '<br/>Track2:- ' + JSON.stringify(args["track2"]);
-		result += '<br/>Track3:- ' + JSON.stringify(args["track3"]);
-		result += '<br/>Track1Status:- ' + JSON.stringify(args["track1Status"]);
-		result += '<br/>Track2Status:- ' + JSON.stringify(args["track2Status"]);
-		result += '<br/>Track3Status:- ' + JSON.stringify(args["track3Status"]);
-		result += '<br/>Track1Encrypted:- ' + JSON.stringify(args["track1Encrypted"]);
-		result += '<br/>Track2Encrypted:- ' + JSON.stringify(args["track2Encrypted"]);
-		result += '<br/>Track3Encrypted:- ' + JSON.stringify(args["track3Encrypted"]);
-		result += '<br/>Track1EncryptedStatus:- ' + JSON.stringify(args["track1EncryptedStatus"]);
-		result += '<br/>Track2EncryptedStatus:- ' + JSON.stringify(args["track2EncryptedStatus"]);
-		result += '<br/>Track3EncryptedStatus:- ' + JSON.stringify(args["track3EncryptedStatus"]);
-		result += '<br/>Ksn:- ' + JSON.stringify(args["ksn"]);
-
-	   displayResult("Output: ",result);
+	   displayResult("Output: ", JSON.stringify(args,null," "));
 	};
 
 	var enumcallback = function (args){
-		displayResult('DefautlInstance:- ',JSON.stringify(args));
+		displayResult('DefautlInstance:- ',JSON.stringify(args,null," "));
 	};
   
 	

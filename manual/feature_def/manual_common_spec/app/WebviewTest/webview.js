@@ -20,20 +20,20 @@ function setacceptLanguage(languageCode)
 function getacceptLanguagetest() 
 {
 	data = Rho.WebView.acceptLanguage;
-	$("#Rho_WebView_getacceptLanguage span.result").text(JSON.stringify(data));
+	$("#Rho_WebView_getacceptLanguage span.result").text(JSON.stringify(data,null," "));
 
 } 
 
 function getActiveTab() 
 { 
 	data = Rho.WebView.activeTab;
-	$("#Rho_WebView_activeTab span.result").text(JSON.stringify(data));
+	$("#Rho_WebView_activeTab span.result").text(JSON.stringify(data,null," "));
 }
 
 function getCacheSize() 
 { 
 	data = Rho.WebView.cacheSize;
-	$("#Rho_WebView_CacheSize span.result").text(JSON.stringify(data));
+	$("#Rho_WebView_CacheSize span.result").text(JSON.stringify(data,null," "));
 		
 }
 
@@ -52,7 +52,7 @@ function setEnableCache(cacheValue)
 function getEnableCache()
 {
 	data = Rho.WebView.enableCache;
-	$("#Rho_WebView_getEnableCache span.result").text(JSON.stringify(data));
+	$("#Rho_WebView_getEnableCache span.result").text(JSON.stringify(data,null," "));
 }
 
 function setEnablePageLoadingIndication(pageLoadingIndication)
@@ -70,7 +70,7 @@ function setEnablePageLoadingIndication(pageLoadingIndication)
 function getEnablePageLoadingIndication()
 {	
 	data = Rho.WebView.enablePageLoadingIndication;
-	$("#Rho_WebView_getEnablePageLoadingIndication span.result").text(JSON.stringify(data));
+	$("#Rho_WebView_getEnablePageLoadingIndication span.result").text(JSON.stringify(data,null," "));
 }
 
 function setEnableWebPlugins(webPlugins)
@@ -88,7 +88,7 @@ function setEnableWebPlugins(webPlugins)
 function getEnableWebPlugins()
 {
 	data = Rho.WebView.enableWebPlugins;
- 	$("#Rho_WebView_getEnableWebPlugins span.result").text(JSON.stringify(data));
+ 	$("#Rho_WebView_getEnableWebPlugins span.result").text(JSON.stringify(data,null," "));
 }
 
 function setEnableZoom(zoom)
@@ -106,20 +106,20 @@ function setEnableZoom(zoom)
 function getEnableZoom()
 {
 	data = Rho.WebView.enableZoom;
-	$("#Rho_WebView_getEnableZoom span.result").text(JSON.stringify(data));
+	$("#Rho_WebView_getEnableZoom span.result").text(JSON.stringify(data,null," "));
 }
 
 function getFontFamily()
 {
 	data = Rho.WebView.fontFamily;
-	$("#Rho_WebView_getFontFamily span.result").text(JSON.stringify(data));
+	$("#Rho_WebView_getFontFamily span.result").text(JSON.stringify(data,null," "));
 	
 }
 
 function getFramework()
 {
 	data = Rho.WebView.framework;
-	$("#Rho_WebView_getFramework span.result").text(JSON.stringify(data));
+	$("#Rho_WebView_getFramework span.result").text(JSON.stringify(data,null," "));
 }
 
 
@@ -139,31 +139,31 @@ function setFullScreen(fullscreen)
 function getFullScreen()
 {
 	data = Rho.WebView.fullScreen;
-	$("#Rho_WebView_getFullScreen span.result").text(JSON.stringify(data));
+	$("#Rho_WebView_getFullScreen span.result").text(JSON.stringify(data,null," "));
 }
 
 function getScrollTechnique()
 {
 	data = Rho.WebView.scrollTechnique;
-	$("#Rho_WebView_getScrollTechnique span.result").text(JSON.stringify(data));
+	$("#Rho_WebView_getScrollTechnique span.result").text(JSON.stringify(data,null," "));
 }
 
 function getUserAgent()
 {
 	data = Rho.WebView.userAgent;
-	$("#Rho_WebView_getUserAgent span.result").text(JSON.stringify(data));
+	$("#Rho_WebView_getUserAgent span.result").text(JSON.stringify(data,null," "));
 }
 
 function getViewportEnabled()
 {
 	data = Rho.WebView.viewportEnabled;
-	$("#Rho_WebView_getViewportEnabled span.result").text(JSON.stringify(data));
+	$("#Rho_WebView_getViewportEnabled span.result").text(JSON.stringify(data,null," "));
 }
 
 function getViewportWidth()
 {
 	data = Rho.WebView.viewportWidth;
-	$("#Rho_WebView_getViewportWidth span.result").text(JSON.stringify(data));
+	$("#Rho_WebView_getViewportWidth span.result").text(JSON.stringify(data,null," "));
 }
 
 function setZoomPage(pagezoom)
@@ -175,7 +175,7 @@ function setZoomPage(pagezoom)
 function getZoomPage()
 {
 	data = Rho.WebView.zoomPage;
-	$("#Rho_WebView_getZoomPage span.result").text(JSON.stringify(data));
+	$("#Rho_WebView_getZoomPage span.result").text(JSON.stringify(data,null," "));
 }
 
 
@@ -187,7 +187,7 @@ function setTextZoomLevel(textzoom)
 function getTextZoomLevel()
 {
 	data = Rho.WebView.textZoomLevel;
-	$("#Rho_WebView_textZoomLevel span.result").text(JSON.stringify(data));
+	$("#Rho_WebView_textZoomLevel span.result").text(JSON.stringify(data,null," "));
 }
 
 
@@ -199,20 +199,20 @@ function setNavigationTimeout(timeout)
 function getNavigationTimeout()
 {
 	data = Rho.WebView.navigationTimeout;
-	$("#Rho_WebView_getNavigationTimeout span.result").text(JSON.stringify(data));
+	$("#Rho_WebView_getNavigationTimeout span.result").text(JSON.stringify(data,null," "));
 }
 
 
 function getCurrentLocation(index)
 {
 	data = Rho.WebView.currentLocation(index);
-	$("#Rho_WebView_getCurrentLocation span.result").text(JSON.stringify(data));
+	$("#Rho_WebView_getCurrentLocation span.result").text(JSON.stringify(data,null," "));
 }
 
 function getCurrentURL(index)
 {
 	data = Rho.WebView.currentURL(index);
-	$("#Rho_WebView_getCurrentURL span.result").text(JSON.stringify(data));
+	$("#Rho_WebView_getCurrentURL span.result").text(JSON.stringify(data,null," "));
 }
 
 function navigate_tab()

@@ -27,7 +27,7 @@ describe("System Module JS Test Starts Here", function() {
 		it("VT200-0682 | call getAllProperties() | ", function() {
 			runs(function(){
 				var data =  Rho.System.getAllProperties();
-				displayResult("VT200-0682 | call getAllProperties() | ",JSON.stringify(data));
+				displayResult("VT200-0682 | call getAllProperties() | ",JSON.stringify(data,null," "));
 			});
 
 			waitsFor(function(){
@@ -70,7 +70,7 @@ describe("System Module JS Test Starts Here", function() {
 		it("VT200-0689 | call getproperties with country,deviceName, devicePushId, freeServerPort and sync callback | ", function() {
 			runs(function(){
 				var data = Rho.System.getProperties(['country','deviceName','devicePushId','freeServerPort']);
-				displayResult("VT200-0689 | call getproperties with country,deviceName, devicePushId, freeServerPort and sync callback | ",JSON.stringify(data));
+				displayResult("VT200-0689 | call getproperties with country,deviceName, devicePushId, freeServerPort and sync callback | ",JSON.stringify(data,null," "));
 			
 			});
 
@@ -94,7 +94,7 @@ describe("System Module JS Test Starts Here", function() {
 							var data = Rho.System.getProperties(objGetProperty);
 							
 							data = data[sys_get_properties[idx]['propertyName']];
-							displayResult(sys_get_properties[idx]['testName'],JSON.stringify(data));
+							displayResult(sys_get_properties[idx]['testName'],JSON.stringify(data,null," "));
 						
 						});
 

@@ -18,7 +18,7 @@ describe("ScreenOrientation JS API Test", function () {
     var screenorientation_callback = function (data) {
 
         orientationType = data;
-        displayResult('DATA:- ', JSON.stringify(data));
+        displayResult('DATA:- ', JSON.stringify(data,null," "));
         callbackFired = true;
 
     }

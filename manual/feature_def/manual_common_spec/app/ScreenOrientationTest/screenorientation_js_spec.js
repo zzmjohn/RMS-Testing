@@ -25,7 +25,7 @@ describe("Screen Orientation Test", function() {
 	var screenorientation_callback = function (data){
 
 		orientationType = data;
-		displayResult('DATA:- ',JSON.stringify(data));
+		displayResult('DATA:- ',JSON.stringify(data,null," "));
 		callbackFired = true;
 
 	}
@@ -202,7 +202,7 @@ describe("Screen Orientation Test", function() {
 		{
             dispCurrentProcess("VT281-0915 | Set autoRotate as true with ananymous callback<br>Rotate the device in all direction manually");
 			Rho.ScreenOrientation.normal(function (data){		
-		    displayResult('DATA:- ',JSON.stringify(data));});
+		    displayResult('DATA:- ',JSON.stringify(data,null," "));});
 		});
 
 		waitsFor(function()

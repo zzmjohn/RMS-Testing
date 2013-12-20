@@ -42,5 +42,5 @@ function callNavbarcreatenoaction()
 function callNavbarstarted()
 {
 	data = Rho.Navbar.started();
-	$("#Rho_Navbar_started span.result").text(JSON.stringify(data));
+	$("#Rho_Navbar_started span.result").text(JSON.stringify(data,null," "));
 }
